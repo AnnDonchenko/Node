@@ -21,12 +21,12 @@ const path = require('path');
 //             const oldFilePath = path.join(oldPath, file);
 //             const newFilePath = path.join(newPath, file);
 //
-//             fs.readFile(oldFilePath, (err, data) => {
-//                 if (err) throw err;
+//             fs.readFile(oldFilePath, (err1, data) => {
+//                 if (err1) throw err1;
 //                 const obj = JSON.parse(data.toString());
 //                 if (obj.gender === condition) {
-//                     fs.rename(oldFilePath, newFilePath, (err) => {
-//                         if (err) throw err;
+//                     fs.rename(oldFilePath, newFilePath, (err2) => {
+//                         if (err2) throw err;
 //                         console.log(obj.name, obj.gender, 'Rename complete!');
 //                     });
 //                 }
@@ -40,14 +40,31 @@ const path = require('path');
 // (Більше інформації в записі лекції)
 
 console.log('-------------2--------------');
-function getFilesFromFolders(){
-    const folderOutPath = path.join(__dirname, 'folder_1lvl');
+const folderOutPath = path.join(__dirname, 'folder_1lvl');
+
+function getFilesFromFolders(folderOutPath) {
     fs.readdir(folderOutPath, (err, files) => {
         if (err) throw err;
 
         files.forEach(file => {
-            console.log(file);
+            const filePath = path.join(folderOutPath, file);
+            const newFilePath = path.join(__dirname, 'new_folder_for_files', file);
+            fs.stat(filePath, (err1, stats) => {
+                if (err1) throw err1;
+
+                if (stats.isFile()) {
+                    fs.rename(filePath, newFilePath, (err2) => {
+                        if (err2) throw err2;
+                        console.log(file, 'Rename complete!');
+                    });
+                }
+
+                if (stats.isDirectory()) {
+                    getFilesFromFolders(filePath);
+                }
+            });
         });
     });
 }
-getFilesFromFolders();
+
+getFilesFromFolders(folderOutPath);
