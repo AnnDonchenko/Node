@@ -10,8 +10,8 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 app.use(express.static(path.join(__dirname, 'static')));
+
 app.set('view engine', '.hbs');
 app.engine('.hbs', expressHbs({defaultLayout: false}));
 app.set('views', path.join(__dirname, 'static'));
@@ -21,28 +21,19 @@ app.get('/ping', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+    res.redirect('/login');
+});
+
+app.get('/login', (req, res) => {
     res.render('login');
 });
 
-app.post('/', (req, res) => {
-    const newUser = req.body;
-    users.push(newUser);
 
-    const fileDbPath = path.join(__dirname, 'db', 'users.js');
-    const textForWrite = `module.exports = \n${JSON.stringify(users)}`;
-
-    fs.writeFile(fileDbPath, textForWrite, (err)=>{
-        if (err) console.log(err);
-    });
-
-    res.render('login');
-});
-
-app.post('/users', (req, res) => {
+app.post('/login', (req, res) => {
     const {name, password} = req.body;
     for (let user of users) {
         if (user.name === name && user.password === password) {
-            res.render('users', {users});
+            res.redirect('/users');
             return;
         }
     }
@@ -52,6 +43,25 @@ app.post('/users', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register');
 })
+
+app.post('/register', (req, res) => {
+    const newUser = req.body;
+    users.push(newUser);
+
+    const fileDbPath = path.join(__dirname, 'db', 'users.js');
+    const textForWrite = `module.exports = \n${JSON.stringify(users)}`;
+
+    fs.writeFile(fileDbPath, textForWrite, (err)=>{
+        if (err) console.log(err);
+    });
+    res.redirect('/login');
+})
+
+app.get('/users', (req, res) => {
+    for (let user of users) {
+        res.render('users', {users});
+    }
+});
 
 app.get('/user/:user_id', (req, res) => {
     const {user_id} = req.params;
