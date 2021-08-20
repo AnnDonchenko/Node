@@ -47,10 +47,9 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-
 app.post('/login', (req, res) => {
     const {email, password} = req.body;
-    users.forEach((value, index)=>{
+    users.forEach((value, index) => {
         if (value.email === email && value.password === password) {
             res.redirect('/user/' + index);
             return;
@@ -78,7 +77,7 @@ app.post('/register', (req, res) => {
     const fileDbPath = path.join(__dirname, 'db', 'users.js');
     const textForWrite = `module.exports = \n${JSON.stringify(users)}`;
 
-    fs.writeFile(fileDbPath, textForWrite, (err)=>{
+    fs.writeFile(fileDbPath, textForWrite, (err) => {
         if (err) console.log(err);
     });
     res.redirect('/login');
