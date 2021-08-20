@@ -22,7 +22,7 @@ const expressHbs = require('express-handlebars')
 const path = require('path');
 const fs = require('fs');
 
-const {PORT} = require('./config/variables')
+const {PORT} = require('./config/variables');
 const users = require('./db/users');
 
 const app = express();
@@ -49,12 +49,14 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const {email, password} = req.body;
+
     users.forEach((value, index) => {
         if (value.email === email && value.password === password) {
             res.redirect('/user/' + index);
             return;
         }
     });
+
     res.redirect('/register');
 });
 
@@ -80,22 +82,23 @@ app.post('/register', (req, res) => {
     fs.writeFile(fileDbPath, textForWrite, (err) => {
         if (err) console.log(err);
     });
+
     res.redirect('/login');
 })
 
 app.get('/users', (req, res) => {
-    for (let user of users) {
-        res.render('users', {users});
-    }
+    res.render('users', {users});
 });
 
 app.get('/user/:user_id', (req, res) => {
     const {user_id} = req.params;
     const current_user = users[user_id];
+
     if (!current_user) {
         res.status(404).json('User not found');
         return;
     }
+
     res.render('user', {current_user});
 });
 
