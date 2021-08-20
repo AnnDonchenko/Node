@@ -52,7 +52,7 @@ app.post('/login', (req, res) => {
 
     users.forEach((value, index) => {
         if (value.email === email && value.password === password) {
-            res.redirect('/user/' + index);
+            res.redirect('/users/' + index);
             return;
         }
     });
@@ -90,7 +90,7 @@ app.get('/users', (req, res) => {
     res.render('users', {users});
 });
 
-app.get('/user/:user_id', (req, res) => {
+app.get('/users/:user_id', (req, res) => {
     const {user_id} = req.params;
     const current_user = users[user_id];
 
