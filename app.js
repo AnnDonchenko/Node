@@ -66,6 +66,7 @@ app.post('/login', async (req, res) => {
 app.get('/register', (req, res) => {
     res.render('registration');
 });
+
 app.post('/register', async (req, res) => {
     try {
         const {name, password} = req.body;
@@ -76,6 +77,7 @@ app.post('/register', async (req, res) => {
         res.status(400).json(e)
     }
 })
+
 app.post('/calc', (req, res) => {
     res.render('calc');
 });
