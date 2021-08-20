@@ -18,7 +18,7 @@
 //     При реєстрації мейли не можуть повторюватись
 
 const express = require('express');
-const expressHbs = require('express-handlebars')
+const expressHbs = require('express-handlebars');
 const path = require('path');
 const fs = require('fs');
 
@@ -62,7 +62,7 @@ app.post('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
     res.render('register');
-})
+});
 
 app.post('/register', (req, res) => {
     const {email, password} = req.body;
@@ -84,7 +84,7 @@ app.post('/register', (req, res) => {
     });
 
     res.redirect('/login');
-})
+});
 
 app.get('/users', (req, res) => {
     res.render('users', {users});
