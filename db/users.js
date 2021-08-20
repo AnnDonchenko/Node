@@ -1,22 +1,2 @@
-module.exports =
-    [
-        {
-            "name": "Dima", "age": 22, "password": "Pa$$w0rd"
-        },
-        {
-            "name": "Vika",
-            "age": 18,
-            "password": "Pa$$w0rd"
-        },
-        {
-            "name": "Khrystyna", "age": 16, "password": "Pa$$w0rd"
-        },
-        {
-            "name": "Viktor",
-            "age": 25,
-            "password": "Pa$$w0rd"
-        },
-        {
-            "name": "Анна", "age": "33", "password": "33"
-        }
-    ]
+module.exports = 
+[{"email":"dima@gmail.com","password":"Pa$$w0rd"},{"email":"vika@gmail.com","password":"Pa$$w0rd"},{"email":"khrystyna@gmail.com","password":"Pa$$w0rd"},{"email":"viktor@gmail.com","password":"Pa$$w0rd"},{"email":"annienko@gmail.com","password":"33"},{"email":"test@test.ua","password":"55"}]

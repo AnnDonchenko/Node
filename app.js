@@ -1,3 +1,22 @@
+// Вам потрібно реалізувати мінімум 3 строрінки.
+// 1) Реєстрація
+// 2) Логінація.
+// 3) Список всіх юзерів.
+//
+//     Створити файлик з юзерами, який буде виступати в ролі бази данних.
+//
+//     При реєстрації юзер вводин логін та пороль і ви його данні дописуєте у файлик.
+//     Якщо такий мейл вже є, то видаємо помилку.
+//
+//     При логінації юзер так само ввоить мейл та пароль і вам необхідно знайти юзера в файлі.
+//     Якщо такий мейлик з таким паролем є, то привіти юзера на платформі показати інформацію про нього та
+//     кнопочку, яка перекине нас на список всіх юзерів.
+//     В інакшому випадку сказати, що необхідно реєструватись.
+//
+//     І відображення всіх юзерів це відповідно просто виведення списку вісх юзерів.
+//
+//     При реєстрації мейли не можуть повторюватись
+
 const express = require('express');
 const expressHbs = require('express-handlebars')
 const path = require('path');
@@ -30,13 +49,13 @@ app.get('/login', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-    const {name, password} = req.body;
-    for (let user of users) {
-        if (user.name === name && user.password === password) {
-            res.redirect('/users');
+    const {email, password} = req.body;
+    users.forEach((value, index)=>{
+        if (value.email === email && value.password === password) {
+            res.redirect('/user/' + index);
             return;
         }
-    }
+    });
     res.redirect('/register');
 });
 
@@ -45,8 +64,16 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
-    const newUser = req.body;
-    users.push(newUser);
+    const {email, password} = req.body;
+
+    for (let user of users) {
+        if (user.email === email) {
+            res.json('This email exists');
+            return;
+        }
+    }
+
+    users.push({email, password});
 
     const fileDbPath = path.join(__dirname, 'db', 'users.js');
     const textForWrite = `module.exports = \n${JSON.stringify(users)}`;
@@ -67,7 +94,7 @@ app.get('/user/:user_id', (req, res) => {
     const {user_id} = req.params;
     const current_user = users[user_id];
     if (!current_user) {
-        res.status(404).end('User not found');
+        res.status(404).json('User not found');
         return;
     }
     res.render('user', {current_user});
