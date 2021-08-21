@@ -20,87 +20,27 @@
 const express = require('express');
 const expressHbs = require('express-handlebars');
 const path = require('path');
-const fs = require('fs');
 
-const {PORT} = require('./config/variables');
-const users = require('./db/users');
+const { PORT } = require('./config/variables');
 
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'static')));
 
 app.set('view engine', '.hbs');
-app.engine('.hbs', expressHbs({defaultLayout: false}));
+app.engine('.hbs', expressHbs({ defaultLayout: false }));
 app.set('views', path.join(__dirname, 'static'));
 
-app.get('/ping', (req, res) => {
-    res.json('Ping');
-});
+const { authRouter, userRouter, registrationRouter } = require('./routes');
 
-app.get('/', (req, res) => {
-    res.redirect('/login');
-});
+app.get('/ping', (req, res) => res.json('Pong'));
+app.get('/', (req, res) => res.redirect('/auth'));
 
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
-app.post('/login', (req, res) => {
-    const {email, password} = req.body;
-
-    users.forEach((value, index) => {
-        if (value.email === email && value.password === password) {
-            res.redirect('/users/' + index);
-            return;
-        }
-    });
-
-    res.redirect('/register');
-});
-
-app.get('/register', (req, res) => {
-    res.render('register');
-});
-
-app.post('/users', (req, res) => {
-    const {email, password} = req.body;
-
-    for (let user of users) {
-        if (user.email === email) {
-            res.json('This email exists');
-            return;
-        }
-    }
-
-    users.push({email, password});
-
-    const fileDbPath = path.join(__dirname, 'db', 'users.js');
-    const textForWrite = `module.exports = \n${JSON.stringify(users)}`;
-
-    fs.writeFile(fileDbPath, textForWrite, (err) => {
-        if (err) console.log(err);
-    });
-
-    res.redirect('/login');
-});
-
-app.get('/users', (req, res) => {
-    res.render('users', {users});
-});
-
-app.get('/users/:user_id', (req, res) => {
-    const {user_id} = req.params;
-    const current_user = users[user_id];
-
-    if (!current_user) {
-        res.status(404).json('User not found');
-        return;
-    }
-
-    res.render('user', {current_user});
-});
+app.use('/auth', authRouter);
+app.use('/users', userRouter);
+app.use('/registration', registrationRouter);
 
 app.listen(PORT, () => {
     console.log('App listen ', PORT);
