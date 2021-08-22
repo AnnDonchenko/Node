@@ -2,17 +2,21 @@ const users = require('../db/users');
 
 module.exports = {
     loginUser: (req, res) => {
-        const { email, password } = req.body;
+        try {
+            const { email, password } = req.body;
 
-        users.forEach((value, index) => {
-            if (value.email === email && value.password === password) {
-                res.redirect(`/users/${index}`);
-            }
-        });
+            users.forEach((value, index) => {
+                if (value.email === email && value.password === password) {
+                    return res.redirect(`/users/${index}`);
+                }
+            });
 
-        res.redirect('/registration');
+            return res.redirect('/registration');
+        } catch (e) {
+            console.log(e);
+        }
     },
     getLoginForm: (req, res) => {
-        res.render('login');
+        res.json('get. login form');
     }
 };
