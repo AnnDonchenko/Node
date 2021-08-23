@@ -9,12 +9,12 @@
 </head>
 <body>
     <h3>Login</h3>
-    <form action="/calc" method="post">
+    <form action="/login" method="post">
         <span>UserName </span>
-        <input type="text" placeholder="Enter name">
+        <input type="text" name="name" placeholder="Enter name" required>
         <br>
         <span>Password </span>
-        <input type="password" placeholder="Enter password">
+        <input type="password" name="password" placeholder="Enter password" required>
         <br>
         <input type="submit" value="Log in">
     </form>

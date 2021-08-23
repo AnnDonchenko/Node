@@ -36,7 +36,7 @@ app.listen(PORT, () => {
 
 app.get('/ping', (req, res) => {
     res.end('ping');
-})
+});
 
 app.get('/', (req, res) => {
     res.render('main');
@@ -45,22 +45,25 @@ app.get('/', (req, res) => {
 app.get('/login', async (req, res) => {
     const users = await getUsers();
 
-    console.log(users);
-    if (!users) {
-        res.end('Register first');
+    if (users.length) {
+        res.json('Register first');
         return;
     }
+
     res.render('login');
 });
 
 app.post('/login', async (req, res) => {
-    try {
-        const user = req.body;
-        await setUser(user);
-        res.render('login');
-    } catch (e) {
-        res.end('something wrong!');
+    const {name, password} = req.body;
+    const users = await getUsers();
+    const userIndex = users.findIndex((user)=> user.name === name && user.password === password);
+
+    if (userIndex !== -1) {
+        res.json('Register first');
+        return;
     }
+
+    res.render('login');
 });
 
 app.get('/register', (req, res) => {
@@ -70,14 +73,13 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         const {name, password} = req.body;
-        console.log(name);
-        await setUser({name, password})
-        res.redirect('/login')
+        await setUser({name, password});
+        res.redirect('/login');
     }catch (e){
-        res.status(400).json(e)
+        res.status(400).json(e);
     }
-})
+});
 
-app.post('/calc', (req, res) => {
+app.get('/calc', (req, res) => {
     res.render('calc');
 });
