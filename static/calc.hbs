@@ -9,5 +9,16 @@
 </head>
 <body>
     <h3>Calculator</h3>
+    <form action="/calc" method="post">
+        <input type="number" placeholder="0" name="value1">
+        <select name="operator">
+            <option value="addition">+</option>
+            <option value="subtraction">-</option>
+            <option value="multiplication">*</option>
+            <option value="division">/</option>
+        </select>
+        <input type="number" placeholder="0" name="value2">
+        <input type="submit" value="=">
+    </form>
 </body>
 </html>
