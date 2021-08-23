@@ -1,4 +1,4 @@
-const users = require('../db/users');
+const users = require('../db/users.json');
 
 module.exports = {
     loginUser: (req, res) => {
@@ -12,6 +12,7 @@ module.exports = {
 
         res.redirect('/registration');
     },
+
     getLoginForm: (req, res) => {
         res.json('get. login form');
     }
