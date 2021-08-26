@@ -11,9 +11,10 @@ module.exports = {
         }
     },
 
-    getAll: async (req, res) => {
+    getAllOrByQuery: async (req, res) => {
         try {
             const { query } = req;
+
             const users = await User.find(query);
 
             res.json(users);
@@ -22,13 +23,39 @@ module.exports = {
         }
     },
 
-    deleteCurrent: async (req, res) => {
+    getOneById: async (req, res) => {
         try {
             const { user_id } = req.params;
 
-            await User.deleteOne({ id: user_id });
+            const user = await User.findOne({ _id: user_id });
 
-            res.status(204).json(`User with id ${user_id} is deleted`);
+            res.json(user);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    deleteById: async (req, res) => {
+        try {
+            const { user_id } = req.params;
+
+            await User.deleteOne({ _id: user_id });
+
+            res.status(204);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    updateById: async (req, res) => {
+        try {
+            const { user_id } = req.params;
+            const newUserData = req.body;
+            console.log(newUserData);
+
+            await User.updateOne({ _id: user_id }, { name: 'max' });
+
+            res.json('data');
         } catch (e) {
             console.log(e);
         }
