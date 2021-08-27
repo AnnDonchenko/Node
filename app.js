@@ -28,7 +28,25 @@ const carRouter = require('./routes/car.route');
 app.get('/', (req, res) => res.redirect('/users'));
 
 app.use('/cars', carRouter);
+app.use('*', _notFoundError);
+app.use(_mainErrorHandler);
 
 app.listen(PORT, () => {
     console.log('App listen on ', PORT);
 });
+
+function _notFoundError(err, req, res, next) {
+    next({
+        status: err.status || 404,
+        message: err.message || 'Not found'
+    });
+}
+
+// eslint-disable-next-line no-unused-vars
+function _mainErrorHandler(err, req, res, next) {
+    res
+        .status(err.status || 500)
+        .json({
+            message: err.message
+        });
+}
