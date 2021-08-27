@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "ef2842c4-5899-48db-a109-ee7f898e201b",
+		"name": "lesson03",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "car",
+			"item": [
+				{
+					"name": "/cars",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"brand\": \"bmv\",\r\n    \"model\": \"s4\",\r\n    \"year\": 2019,\r\n    \"price\": 4656565\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/cars",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/cars",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cars/:car_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/cars/:car_id",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"cars",
+								":car_id"
+							],
+							"variable": [
+								{
+									"key": "car_id",
+									"value": "6128ac7e0fc5fbe2506fa872"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "http://localhost:5000"
+		}
+	]
+}
