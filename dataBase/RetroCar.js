@@ -14,11 +14,13 @@ const retroCarSchema = new Schema({
     },
     year: {
         type: Number,
-        trim: true
+        trim: true,
+        default: 1970
     },
     price: {
         type: Number,
-        trim: true
+        trim: true,
+        default: 0
     }
 }, { timestamps: true });
 
