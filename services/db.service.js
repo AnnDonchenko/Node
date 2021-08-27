@@ -18,7 +18,6 @@ module.exports = {
     },
 
     findItem: async (schema, filter) => {
-        console.log(filter);
         const item = await schema.findOne(filter);
 
         return item;
