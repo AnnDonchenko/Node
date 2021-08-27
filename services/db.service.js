@@ -17,8 +17,9 @@ module.exports = {
         return item;
     },
 
-    findItemByEmail: async (schema, filter) => {
-        const item = await schema.findOne({ email: filter });
+    findItem: async (schema, filter) => {
+        console.log(filter);
+        const item = await schema.findOne(filter);
 
         return item;
     },

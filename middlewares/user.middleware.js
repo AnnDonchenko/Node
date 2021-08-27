@@ -26,7 +26,7 @@ module.exports = {
         try {
             const { email } = req.body;
 
-            const userByEmail = await dbService.findItemByEmail(User, email);
+            const userByEmail = await dbService.findItem(User, { email });
 
             if (userByEmail) {
                 throw new ErrorHandler(emailExists.statusCode, emailExists.massage);
