@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { carController } = require('../controllers');
-const { carMiddleware } = require('../middlewares/index');
+const { carMiddleware } = require('../middlewares');
 
 router.post('/', carMiddleware.checkUniqueModel, carController.create);
 router.get('/', carController.getAllOrByQuery);

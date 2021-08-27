@@ -1,12 +1,13 @@
 const User = require('../dataBase/User');
-const { dbService } = require('../services/index');
+const { dbService } = require('../services');
+const { requestVariables: { created, updated, deleted } } = require('../config');
 
 module.exports = {
     create: async (req, res, next) => {
         try {
             const createdUser = await dbService.createItem(User, req.body);
 
-            res.json(createdUser);
+            res.status(created.statusCode).json(createdUser);
         } catch (e) {
             next(e);
         }
@@ -38,7 +39,7 @@ module.exports = {
 
             await dbService.deleteItemById(User, user_id);
 
-            res.json(`user with id ${user_id} is deleted`);
+            res.status(deleted.statusCode).json(deleted.massage);
         } catch (e) {
             next(e);
         }
@@ -51,7 +52,7 @@ module.exports = {
 
             await dbService.updateItemById(User, user_id, newUserData);
 
-            res.json(`user with id ${user_id} is updated`);
+            res.status(updated.statusCode).json(updated.massage);
         } catch (e) {
             next(e);
         }

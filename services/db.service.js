@@ -1,33 +1,13 @@
 module.exports = {
-    createItem: async (schema, newItemData) => {
-        const createdItem = await schema.create(newItemData);
+    createItem: (schema, newItemData) => schema.create(newItemData),
 
-        return createdItem;
-    },
+    findItemsByQuery: (schema, query) => schema.find(query),
 
-    findItemsByQuery: async (schema, query) => {
-        const items = await schema.find(query);
+    findItemById: (schema, itemId) => schema.findById(itemId),
 
-        return items;
-    },
+    findItem: (schema, filter) => schema.findOne(filter),
 
-    findItemById: async (schema, itemId) => {
-        const item = await schema.findById(itemId);
+    deleteItemById: (schema, itemId) => schema.deleteOne({ _id: itemId }),
 
-        return item;
-    },
-
-    findItem: async (schema, filter) => {
-        const item = await schema.findOne(filter);
-
-        return item;
-    },
-
-    deleteItemById: async (schema, itemId) => {
-        await schema.deleteOne({ _id: itemId });
-    },
-
-    updateItemById: async (schema, itemId, newItemData) => {
-        await schema.updateOne({ _id: itemId }, newItemData);
-    }
+    updateItemById: (schema, itemId, newItemData) => schema.updateOne({ _id: itemId }, newItemData)
 };

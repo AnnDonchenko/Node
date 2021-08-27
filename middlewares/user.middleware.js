@@ -1,6 +1,6 @@
 const User = require('../dataBase/User');
-const { dbService } = require('../services/index');
-const { requestVariables: { notFound, emailExists } } = require('../config/index');
+const { dbService } = require('../services');
+const { requestVariables: { notFound, emailExists } } = require('../config');
 const ErrorHandler = require('../errors/ErrorHandler');
 
 module.exports = {

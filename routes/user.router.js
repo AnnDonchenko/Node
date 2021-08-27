@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { userController } = require('../controllers');
-const { userMiddleware } = require('../middlewares/index');
+const { userMiddleware } = require('../middlewares');
 
 router.post('/', userMiddleware.checkUniqueEmail, userController.create);
 router.get('/', userController.getAllOrByQuery);

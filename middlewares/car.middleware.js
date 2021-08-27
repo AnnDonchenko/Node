@@ -1,6 +1,6 @@
 const Car = require('../dataBase/Car');
-const { dbService } = require('../services/index');
-const { requestVariables: { notFound, modelExists } } = require('../config/index');
+const { dbService } = require('../services');
+const { requestVariables: { notFound, modelExists } } = require('../config');
 const ErrorHandler = require('../errors/ErrorHandler');
 
 module.exports = {
