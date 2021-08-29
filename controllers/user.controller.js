@@ -1,13 +1,19 @@
 const User = require('../dataBase/User');
-const { dbService } = require('../services');
-const { requestVariables: { created, updated, deleted } } = require('../config');
+const { dbService, passwordService } = require('../services');
+const { statusCodes, statusMessages } = require('../config');
+const { userNormalizer } = require('../utils/user.util');
 
 module.exports = {
     create: async (req, res, next) => {
         try {
-            const createdUser = await dbService.createItem(User, req.body);
+            const { password } = req.body;
 
-            res.status(created.statusCode).json(createdUser);
+            const hashedPassword = await passwordService.hash(password);
+            const createdUser = await dbService.createItem(User, { ...req.body, password: hashedPassword });
+
+            const userToReturn = userNormalizer(createdUser);
+
+            res.status(statusCodes.created).json(userToReturn);
         } catch (e) {
             next(e);
         }
@@ -19,7 +25,9 @@ module.exports = {
 
             const users = await dbService.findItemsByQuery(User, query);
 
-            res.json(users);
+            const usersToReturn = users.map((item) => userNormalizer(item));
+
+            res.json(usersToReturn);
         } catch (e) {
             next(e);
         }
@@ -27,7 +35,11 @@ module.exports = {
 
     getOneById: (req, res, next) => {
         try {
-            res.json(req.user);
+            const { user } = req;
+
+            const userToReturn = userNormalizer(user);
+
+            res.json(userToReturn);
         } catch (e) {
             next(e);
         }
@@ -39,7 +51,7 @@ module.exports = {
 
             await dbService.deleteItemById(User, user_id);
 
-            res.status(deleted.statusCode).json(deleted.massage);
+            res.status(statusCodes.deleted).json(statusMessages.deleted);
         } catch (e) {
             next(e);
         }
@@ -52,7 +64,7 @@ module.exports = {
 
             await dbService.updateItemById(User, user_id, newUserData);
 
-            res.status(updated.statusCode).json(updated.massage);
+            res.status(statusCodes.updated).json(statusMessages.updated);
         } catch (e) {
             next(e);
         }

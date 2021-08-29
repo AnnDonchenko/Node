@@ -1,19 +1,14 @@
-// Вам необхідно реалізувати CRUD на дві сутності (user, car)
+// Вам необхідно покрити всі місця, де це необхідно валідаторами JOI (query, params, body).
 //
-// Мають бути реалізовані такі методи:
-// 1) Create user
-// 2) Get all users
-// 3) Get user by email or name
-// 4) Delete current user
+//     Зробити хешування паролів
 //
-// Все це має бути розбито по роутах, контроллерах, сервісах з обовязковою перевіркою всього що приходить через мідлвари.
-//     Також всі меджік стрінги мають бути винесені в константи.
-//
-//     додати errorHandler
+// Зробити заготовку для флоу аутернтифікації. Тобто роут, контроллер, мідлвари і так далі
+// https://www.youtube.com/watch?v=NO8rRUk_G_I&t=5700s
+
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT, DBPath } = require('./config/variables');
+const { mainVariables: { PORT, DBPath }, statusCodes, statusMessages } = require('./config');
 
 const app = express();
 
@@ -37,15 +32,15 @@ app.listen(PORT, () => {
 
 function _notFoundError(err, req, res, next) {
     next({
-        status: err.status || 404,
-        message: err.message || 'Not found'
+        status: err.status || statusCodes.notFound,
+        message: err.message || statusMessages.notFound
     });
 }
 
 // eslint-disable-next-line no-unused-vars
 function _mainErrorHandler(err, req, res, next) {
     res
-        .status(err.status || 500)
+        .status(err.status || statusCodes.serverError)
         .json({
             message: err.message
         });

@@ -41,7 +41,10 @@ module.exports = {
         ],
         'linebreak-style': 'off',
         'max-classes-per-file': 'off',
-        'newline-per-chained-call': 'error',
+        'newline-per-chained-call': [
+            'error',
+            { ignoreChainWithDepth: 6 }
+        ],
         'new-parens': 'error',
         'no-alert': 'error',
         'no-duplicate-imports': 'error',
