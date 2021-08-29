@@ -5,5 +5,5 @@ module.exports = {
     created: 'Item is created',
     updated: 'Item is updated',
     deleted: 'Item is deleted',
-    notLogined: 'Email ot password is wrong',
+    notLogined: 'Email or password is wrong',
 };

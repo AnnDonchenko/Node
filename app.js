@@ -17,12 +17,13 @@ mongoose.connect(DBPath);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const { userRouter, carRouter } = require('./routes/index');
+const { authRouter, carRouter, userRouter } = require('./routes');
 
 app.get('/', (req, res) => res.redirect('/users'));
 
-app.use('/users', userRouter);
+app.use('/auth', authRouter);
 app.use('/cars', carRouter);
+app.use('/users', userRouter);
 app.use('*', _notFoundError);
 app.use(_mainErrorHandler);
 
