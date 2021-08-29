@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "12e7c17e-45c1-4803-98d2-d0eaf3985f04",
-		"name": "homework04",
+		"_postman_id": "eefeaa19-29c5-4bb1-92f4-2f1bb54f2170",
+		"name": "homework05",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"name\": \"max\",\r\n    \"email\": \"max2@gmail.com\",\r\n    \"role\": \"user\" \r\n}",
+							"raw": "{ \r\n    \"name\": \"max\",\r\n    \"email\": \"max10@gmail.com\",\r\n    \"password\": \"maX2*12dfr\",\r\n    \"role\": \"SuperUser\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -40,7 +40,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/users?name=max",
+							"raw": "{{domain}}/users",
 							"host": [
 								"{{domain}}"
 							],
@@ -50,12 +50,18 @@
 							"query": [
 								{
 									"key": "email",
-									"value": "dima@gmail.com",
+									"value": "max@gmail.com",
 									"disabled": true
 								},
 								{
 									"key": "name",
-									"value": "max"
+									"value": "max",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "superUser",
+									"disabled": true
 								}
 							]
 						}
@@ -79,7 +85,7 @@
 							"variable": [
 								{
 									"key": "user_id",
-									"value": "612898346763488dafa84285"
+									"value": "6127ba3aaf6d974881981261"
 								}
 							]
 						}
@@ -117,7 +123,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"name\": \"olya\",\r\n    \"email\": \"olya@gmail.com\",\r\n    \"role\": \"admin\" \r\n}",
+							"raw": "{ \r\n    \"name\": \"olll\",\r\n    \"email\": \"olya4@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,7 +161,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"brand\": \"bmv\",\r\n    \"model\": \"s4\",\r\n    \"year\": 2019 \r\n}",
+							"raw": "{ \r\n    \"brand\": \"mazda\",\r\n    \"model\": \"m2\",\r\n    \"year\": 2020\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -180,7 +186,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/cars?model=s4",
+							"raw": "{{domain}}/cars",
 							"host": [
 								"{{domain}}"
 							],
@@ -195,7 +201,8 @@
 								},
 								{
 									"key": "model",
-									"value": "s4"
+									"value": "s4",
+									"disabled": true
 								}
 							]
 						}
@@ -219,7 +226,7 @@
 							"variable": [
 								{
 									"key": "car_id",
-									"value": "6128ac7e0fc5fbe2506fa872"
+									"value": "6128aaa63f647854853cef3d"
 								}
 							]
 						}
@@ -243,7 +250,7 @@
 							"variable": [
 								{
 									"key": "car_id",
-									"value": "6128ac7e0fc5fbe2506fa872"
+									"value": "6128aaa63f647854853cef3d"
 								}
 							]
 						}
@@ -257,7 +264,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"brand\": \"bmv\",\r\n    \"model\": \"s4\",\r\n    \"year\": 2019\r\n}",
+							"raw": "{ \r\n    \"brand\": \"bmv\",\r\n    \"model\": \"s3\",\r\n    \"year\": 2019\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,6 +285,54 @@
 									"key": "car_id",
 									"value": "6128abe0afeb7f73890331a5"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "/auth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/auth",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"max10@gmail.com\",\r\n    \"password\": \"maX2*12dfr\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth"
 							]
 						}
 					},
