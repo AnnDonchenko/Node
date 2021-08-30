@@ -15,7 +15,7 @@ const createUserValidator = Joi.object({
 const getUsersValidator = Joi.object({
     name: Joi.string().alphanum().min(2).max(30).trim(),
     email: Joi.string().regex(EMAIL_REGEXP),
-    role: Joi.string().allow(...Object.values(userRolesEnum)) // чомусь тут пускає і інші варіанти ролей
+    role: Joi.string().valid(...Object.values(userRolesEnum))
 });
 
 const updateUserValidator = Joi.object({
