@@ -14,6 +14,7 @@ const {
 
 router.post('/', validateCarBodyForCreate, checkUniqueModel, carController.create);
 router.get('/', validateCarQuery, carController.getAllOrByQuery);
+
 router.get('/:car_id', validateIdParams, isCarPresent, carController.getOneById);
 router.patch('/:car_id', validateIdParams, validateCarBodyForUpdate,
     isCarPresent, checkUniqueModel, carController.updateById);
