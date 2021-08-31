@@ -1,12 +1,14 @@
-// Вам необхідно покрити всі місця, де це необхідно валідаторами JOI (query, params, body).
-//
-//     Зробити хешування паролів
-//
-// Зробити заготовку для флоу аутернтифікації. Тобто роут, контроллер, мідлвари і так далі
-// https://www.youtube.com/watch?v=NO8rRUk_G_I&t=5700s
+// встановити PM2
+// оптимізнути свою апку за допомогою нових мідлвар
+// додати:
+// .env - не пушимо (перед створенням додайте його в .gitignore)
+// .env-example
+// в кого відсутня друга сутність обов'язково доробити
 
 const express = require('express');
 const mongoose = require('mongoose');
+
+require('dotenv').config();
 
 const { mainVariables: { PORT, DBPath }, statusCodes, statusMessages } = require('./config');
 
