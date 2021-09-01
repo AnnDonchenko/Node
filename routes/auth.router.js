@@ -8,7 +8,12 @@ const {
     }
 } = require('../middlewares');
 
-router.post('/', validateLoginationData, isUserEmailPresent, authController.loginUser);
+router.post(
+    '/',
+    validateLoginationData,
+    isUserEmailPresent,
+    authController.loginUser
+);
 router.get('/', authController.renderLoginForm);
 
 module.exports = router;

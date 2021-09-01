@@ -1,7 +1,7 @@
-const Car = require('../dataBase/Car');
+const { Car } = require('../dataBase');
 const { dbService } = require('../services');
 const { statusCodes, statusMessages } = require('../config');
-const ErrorHandler = require('../errors/ErrorHandler');
+const { ErrorHandler } = require('../errors');
 const { carValidator } = require('../validators');
 
 module.exports = {
@@ -87,6 +87,38 @@ module.exports = {
             if (error) {
                 throw new ErrorHandler(statusCodes.notValidData, error.details[0].message);
             }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    validateCarDataByDynamicParam: (validator, searchIn = 'body') => (req, res, next) => {
+        try {
+            const { error } = validator.validate(req[searchIn]);
+
+            if (error) {
+                throw new ErrorHandler(statusCodes.notValidData, error.details[0].message);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    getCarByDynamicParam: (paramName, searchIn = 'body', dbFiled = paramName) => async (req, res, next) => {
+        try {
+            const value = req[searchIn][paramName];
+
+            const user = await dbService.findItem(Car, { [dbFiled]: value });
+
+            if (!user) {
+                throw new ErrorHandler(statusCodes.notFound, statusMessages.notFound);
+            }
+
+            req.user = user;
 
             next();
         } catch (e) {

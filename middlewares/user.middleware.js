@@ -1,28 +1,9 @@
-const User = require('../dataBase/User');
+const { User } = require('../dataBase');
 const { dbService } = require('../services');
 const { statusCodes, statusMessages } = require('../config');
-const ErrorHandler = require('../errors/ErrorHandler');
-const { userValidator } = require('../validators');
+const { ErrorHandler } = require('../errors');
 
 module.exports = {
-    isUserPresent: async (req, res, next) => {
-        try {
-            const { user_id } = req.params;
-
-            const user = await dbService.findItemById(User, user_id);
-
-            if (!user) {
-                throw new ErrorHandler(statusCodes.notFound, statusMessages.notFound);
-            }
-
-            req.user = user;
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
     checkUniqueEmail: async (req, res, next) => {
         try {
             const { email } = req.body;
@@ -39,9 +20,9 @@ module.exports = {
         }
     },
 
-    validateUserBodyForCreate: (req, res, next) => {
+    validateUserDataByDynamicParam: (validator, searchIn = 'body') => (req, res, next) => {
         try {
-            const { error } = userValidator.createUserValidator.validate(req.body);
+            const { error } = validator.validate(req[searchIn]);
 
             if (error) {
                 throw new ErrorHandler(statusCodes.notValidData, error.details[0].message);
@@ -53,41 +34,17 @@ module.exports = {
         }
     },
 
-    validateUserBodyForUpdate: (req, res, next) => {
+    getUserByDynamicParam: (paramName, searchIn = 'body', dbFiled = paramName) => async (req, res, next) => {
         try {
-            const { error } = userValidator.updateUserValidator.validate(req.body);
+            const value = req[searchIn][paramName];
 
-            if (error) {
-                throw new ErrorHandler(statusCodes.notValidData, error.details[0].message);
+            const user = await dbService.findItem(User, { [dbFiled]: value });
+
+            if (!user) {
+                throw new ErrorHandler(statusCodes.notFound, statusMessages.notFound);
             }
 
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
-    validateUserQuery: (req, res, next) => {
-        try {
-            const { error } = userValidator.getUsersValidator.validate(req.query);
-
-            if (error) {
-                throw new ErrorHandler(statusCodes.notValidData, error.details[0].message);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
-    validateIdParams: (req, res, next) => {
-        try {
-            const { error } = userValidator.userIdValidator.validate(req.params);
-
-            if (error) {
-                throw new ErrorHandler(statusCodes.notValidData, error.details[0].message);
-            }
+            req.user = user;
 
             next();
         } catch (e) {

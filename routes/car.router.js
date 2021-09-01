@@ -1,23 +1,46 @@
 const router = require('express').Router();
 
 const { carController } = require('../controllers');
+const { carValidator } = require('../validators');
 const {
     carMiddleware: {
         checkUniqueModel,
-        isCarPresent,
-        validateCarBodyForCreate,
-        validateCarBodyForUpdate,
-        validateCarQuery,
-        validateIdParams
+        validateCarDataByDynamicParam,
+        getCarByDynamicParam
     }
 } = require('../middlewares');
 
-router.post('/', validateCarBodyForCreate, checkUniqueModel, carController.create);
-router.get('/', validateCarQuery, carController.getAllOrByQuery);
+router.post(
+    '/',
+    validateCarDataByDynamicParam(carValidator.createCarValidator),
+    checkUniqueModel,
+    carController.create
+);
+router.get(
+    '/',
+    validateCarDataByDynamicParam(carValidator.getCarsValidator, 'query'),
+    carController.getAllOrByQuery
+);
 
-router.get('/:car_id', validateIdParams, isCarPresent, carController.getOneById);
-router.patch('/:car_id', validateIdParams, validateCarBodyForUpdate,
-    isCarPresent, checkUniqueModel, carController.updateById);
-router.delete('/:car_id', validateIdParams, isCarPresent, carController.deleteById);
+router.get(
+    '/:car_id',
+    validateCarDataByDynamicParam(carValidator.carIdValidator, 'params'),
+    getCarByDynamicParam('car_id', 'params', '_id'),
+    carController.getOneById
+);
+router.patch(
+    '/:car_id',
+    validateCarDataByDynamicParam(carValidator.carIdValidator, 'params'),
+    validateCarDataByDynamicParam(carValidator.updateCarValidator),
+    getCarByDynamicParam('car_id', 'params', '_id'),
+    checkUniqueModel,
+    carController.updateById
+);
+router.delete(
+    '/:car_id',
+    validateCarDataByDynamicParam(carValidator.carIdValidator, 'params'),
+    getCarByDynamicParam('car_id', 'params', '_id'),
+    carController.deleteById
+);
 
 module.exports = router;

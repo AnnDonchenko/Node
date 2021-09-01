@@ -1,7 +1,7 @@
-const User = require('../dataBase/User');
+const { User } = require('../dataBase');
 const { dbService } = require('../services');
 const { statusCodes, statusMessages } = require('../config');
-const ErrorHandler = require('../errors/ErrorHandler');
+const { ErrorHandler } = require('../errors');
 const { authValidator } = require('../validators');
 
 module.exports = {

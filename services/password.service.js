@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const ErrorHandler = require('../errors/ErrorHandler');
+const { ErrorHandler } = require('../errors');
 const { statusCodes, statusMessages } = require('../config');
 
 module.exports = {

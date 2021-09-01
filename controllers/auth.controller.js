@@ -1,6 +1,6 @@
 const { passwordService } = require('../services');
 const { mainVariables: { FORM_MASSAGE } } = require('../config');
-const { userNormalizer } = require('../utils/user.util');
+const { userUtil: { userNormalizer } } = require('../utils');
 
 module.exports = {
     renderLoginForm: (req, res, next) => {

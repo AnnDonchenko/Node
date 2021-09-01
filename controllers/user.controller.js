@@ -1,7 +1,7 @@
-const User = require('../dataBase/User');
+const { User } = require('../dataBase');
 const { dbService, passwordService } = require('../services');
 const { statusCodes, statusMessages } = require('../config');
-const { userNormalizer } = require('../utils/user.util');
+const { userUtil: { userNormalizer } } = require('../utils');
 
 module.exports = {
     create: async (req, res, next) => {

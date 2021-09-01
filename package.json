@@ -4,7 +4,8 @@
   "description": "",
   "main": "routes/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 kill && pm2 start app.js && pm2 monit"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,8 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "joi": "^17.4.2",
-    "mongoose": "^6.0.1"
+    "mongoose": "^6.0.1",
+    "pm2": "^5.1.1"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
