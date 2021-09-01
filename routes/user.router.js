@@ -9,6 +9,7 @@ const {
         getUserByDynamicParam
     }
 } = require('../middlewares');
+const { middlewareVars } = require('../config');
 
 router.post(
     '/',
@@ -18,28 +19,28 @@ router.post(
 );
 router.get(
     '/',
-    validateUserDataByDynamicParam(userValidator.getUsersValidator, 'query'),
+    validateUserDataByDynamicParam(userValidator.getUsersValidator, middlewareVars.query),
     userController.getAllOrByQuery
 );
 
 router.get(
     '/:user_id',
-    validateUserDataByDynamicParam(userValidator.userIdValidator, 'params'),
-    getUserByDynamicParam('user_id', 'params', '_id'),
+    validateUserDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
+    getUserByDynamicParam(middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     userController.getOneById
 );
 router.patch(
     '/:user_id',
-    validateUserDataByDynamicParam(userValidator.userIdValidator, 'params'),
+    validateUserDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
     validateUserDataByDynamicParam(userValidator.updateUserValidator),
-    getUserByDynamicParam('user_id', 'params', '_id'),
+    getUserByDynamicParam(middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     checkUniqueEmail,
     userController.updateById
 );
 router.delete(
     '/:user_id',
-    validateUserDataByDynamicParam(userValidator.userIdValidator, 'params'),
-    getUserByDynamicParam('user_id', 'params', '_id'),
+    validateUserDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
+    getUserByDynamicParam(middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     userController.deleteById
 );
 

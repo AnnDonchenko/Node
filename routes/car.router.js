@@ -9,6 +9,7 @@ const {
         getCarByDynamicParam
     }
 } = require('../middlewares');
+const { middlewareVars } = require('../config');
 
 router.post(
     '/',
@@ -18,28 +19,28 @@ router.post(
 );
 router.get(
     '/',
-    validateCarDataByDynamicParam(carValidator.getCarsValidator, 'query'),
+    validateCarDataByDynamicParam(carValidator.getCarsValidator, middlewareVars.query),
     carController.getAllOrByQuery
 );
 
 router.get(
     '/:car_id',
-    validateCarDataByDynamicParam(carValidator.carIdValidator, 'params'),
-    getCarByDynamicParam('car_id', 'params', '_id'),
+    validateCarDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
+    getCarByDynamicParam(middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
     carController.getOneById
 );
 router.patch(
     '/:car_id',
-    validateCarDataByDynamicParam(carValidator.carIdValidator, 'params'),
+    validateCarDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
     validateCarDataByDynamicParam(carValidator.updateCarValidator),
-    getCarByDynamicParam('car_id', 'params', '_id'),
+    getCarByDynamicParam(middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
     checkUniqueModel,
     carController.updateById
 );
 router.delete(
     '/:car_id',
-    validateCarDataByDynamicParam(carValidator.carIdValidator, 'params'),
-    getCarByDynamicParam('car_id', 'params', '_id'),
+    validateCarDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
+    getCarByDynamicParam(middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
     carController.deleteById
 );
 
