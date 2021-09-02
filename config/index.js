@@ -5,5 +5,6 @@ module.exports = {
     carBrandsEnum: require('./car-brands.enum'),
     statusCodes: require('./status-codes'),
     statusMessages: require('./status-massages'),
-    middlewareVars: require('./middlewares-variables')
+    middlewareVars: require('./middlewares-variables'),
+    databaseTablesEnum: require('./database-tables.enum')
 };

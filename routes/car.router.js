@@ -1,46 +1,52 @@
 const router = require('express').Router();
 
+const { middlewareVars } = require('../config');
 const { carController } = require('../controllers');
-const { carValidator } = require('../validators');
+const { Car } = require('../dataBase');
 const {
-    carMiddleware: {
-        checkUniqueModel,
-        validateCarDataByDynamicParam,
-        getCarByDynamicParam
+    generalMiddleware: {
+        validateDataByDynamicParam,
+        getItemByDynamicParam,
+        throwIfItemExist
     }
 } = require('../middlewares');
-const { middlewareVars } = require('../config');
+const { carValidator } = require('../validators');
 
 router.post(
     '/',
-    validateCarDataByDynamicParam(carValidator.createCarValidator),
-    checkUniqueModel,
+    validateDataByDynamicParam(carValidator.createCarValidator),
+    getItemByDynamicParam(Car, middlewareVars.model),
+    throwIfItemExist(),
     carController.create
 );
 router.get(
     '/',
-    validateCarDataByDynamicParam(carValidator.getCarsValidator, middlewareVars.query),
+    validateDataByDynamicParam(carValidator.getCarsValidator, middlewareVars.query),
     carController.getAllOrByQuery
 );
 
 router.get(
     '/:car_id',
-    validateCarDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
-    getCarByDynamicParam(middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
+    validateDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
+    getItemByDynamicParam(Car, middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
+    throwIfItemExist(false),
     carController.getOneById
 );
 router.patch(
     '/:car_id',
-    validateCarDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
-    validateCarDataByDynamicParam(carValidator.updateCarValidator),
-    getCarByDynamicParam(middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
-    checkUniqueModel,
+    validateDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
+    validateDataByDynamicParam(carValidator.updateCarValidator),
+    getItemByDynamicParam(Car, middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
+    throwIfItemExist(false),
+    getItemByDynamicParam(Car, middlewareVars.model),
+    throwIfItemExist(),
     carController.updateById
 );
 router.delete(
     '/:car_id',
-    validateCarDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
-    getCarByDynamicParam(middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
+    validateDataByDynamicParam(carValidator.carIdValidator, middlewareVars.params),
+    getItemByDynamicParam(Car, middlewareVars.car_id, middlewareVars.params, middlewareVars.id),
+    throwIfItemExist(false),
     carController.deleteById
 );
 

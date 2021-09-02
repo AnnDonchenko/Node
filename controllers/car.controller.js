@@ -27,7 +27,9 @@ module.exports = {
 
     getOneById: (req, res, next) => {
         try {
-            res.json(req.car);
+            const car = req.body.item;
+
+            res.json(car);
         } catch (e) {
             next(e);
         }

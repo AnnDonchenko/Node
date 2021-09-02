@@ -35,7 +35,7 @@ module.exports = {
 
     getOneById: (req, res, next) => {
         try {
-            const { user } = req;
+            const { item: user } = req.body;
 
             const userToReturn = userNormalizer(user);
 

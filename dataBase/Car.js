@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const { carBrandsEnum } = require('../config/index');
+const { carBrandsEnum } = require('../config');
 
 const carSchema = new Schema({
     brand: {
