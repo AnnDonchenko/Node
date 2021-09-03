@@ -1,6 +1,6 @@
+const { statusCodes, statusMessages } = require('../config');
 const { Car } = require('../dataBase');
 const { dbService } = require('../services');
-const { statusCodes, statusMessages } = require('../config');
 
 module.exports = {
     create: async (req, res, next) => {

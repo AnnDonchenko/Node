@@ -1,7 +1,7 @@
 const { mainVariables: { FORM_MASSAGE, AUTHORIZATION }, statusCodes } = require('../config');
+const { TokenAuth } = require('../dataBase');
 const { passwordService, dbService, jwtService } = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
-const { TokenAuth } = require('../dataBase');
 
 module.exports = {
     renderLoginForm: (req, res, next) => {

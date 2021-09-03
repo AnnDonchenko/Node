@@ -1,6 +1,6 @@
-const { dbService } = require('../services');
 const { statusCodes, statusMessages } = require('../config');
 const { ErrorHandler } = require('../errors');
+const { dbService } = require('../services');
 
 module.exports = {
     validateDataByDynamicParam: (validator, searchIn = 'body') => (req, res, next) => {
@@ -47,5 +47,5 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    },
+    }
 };

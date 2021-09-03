@@ -1,6 +1,6 @@
+const { statusCodes, statusMessages } = require('../config');
 const { User } = require('../dataBase');
 const { dbService, passwordService } = require('../services');
-const { statusCodes, statusMessages } = require('../config');
 const { userUtil: { userNormalizer } } = require('../utils');
 
 module.exports = {
