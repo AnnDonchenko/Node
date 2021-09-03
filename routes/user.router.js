@@ -36,27 +36,23 @@ router.get(
 );
 router.patch(
     '/:user_id',
-    authMiddleware.validateAccessToken,
     validateDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
     validateDataByDynamicParam(userValidator.updateUserValidator),
+    authMiddleware.validateAccessToken,
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),
-
     userMiddleware.checkUserPermission([]),
-
     getItemByDynamicParam(User, middlewareVars.email),
     throwIfItemExist(),
     userController.updateById
 );
 router.delete(
     '/:user_id',
-    authMiddleware.validateAccessToken,
     validateDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
+    authMiddleware.validateAccessToken,
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),
-
     userMiddleware.checkUserPermission(['admin']),
-
     userController.deleteById
 );
 
