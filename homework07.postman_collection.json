@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"name\": \"max\",\r\n    \"email\": \"max10@gmail.com\",\r\n    \"password\": \"maX2*12dfr\",\r\n    \"role\": \"SuperUser\"\r\n}",
+							"raw": "{ \r\n    \"name\": \"max\",\r\n    \"email\": \"max11@gmail.com\",\r\n    \"password\": \"maX2*12dfr\",\r\n    \"role\": \"user\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -85,7 +85,7 @@
 							"variable": [
 								{
 									"key": "user_id",
-									"value": "6127ba3aaf6d974881981261"
+									"value": "612f54b3caa6a7f45e712c8d"
 								}
 							]
 						}
@@ -96,7 +96,13 @@
 					"name": "/users/:users_id",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTgyMTIsImV4cCI6MTYzMDU5OTExMn0.bxwH0_yl58ZOw00rKoFZoPk74ZNGl77XM7BgbBF5ees",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{domain}}/users/:users_id",
 							"host": [
@@ -109,7 +115,7 @@
 							"variable": [
 								{
 									"key": "users_id",
-									"value": "6128adb60fc5fbe2506fa882"
+									"value": "612bab63f866f3eba4ab66a4"
 								}
 							]
 						}
@@ -120,10 +126,16 @@
 					"name": "/users/:user_id",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTg3MzEsImV4cCI6MTYzMDU5OTYzMX0.REIItNQwCpNmrw2NAuBkTk57VNh1xL5YOiKfnUUrrS8",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"name\": \"olll\",\r\n    \"email\": \"olya4@gmail.com\"\r\n}",
+							"raw": "{ \r\n    \"name\": \"katya2\",\r\n    \"email\": \"katya2@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,7 +154,7 @@
 							"variable": [
 								{
 									"key": "user_id",
-									"value": "612898346763488dafa84285"
+									"value": "612ba611a9571ffa55541634"
 								}
 							]
 						}
@@ -161,7 +173,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"brand\": \"mazda\",\r\n    \"model\": \"m2\",\r\n    \"year\": 2020\r\n}",
+							"raw": "{ \r\n    \"brand\": \"mazda\",\r\n    \"model\": \"m22\",\r\n    \"year\": 2020\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -186,7 +198,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/cars",
+							"raw": "{{domain}}/cars?model=m22",
 							"host": [
 								"{{domain}}"
 							],
@@ -201,8 +213,7 @@
 								},
 								{
 									"key": "model",
-									"value": "s4",
-									"disabled": true
+									"value": "m22"
 								}
 							]
 						}
@@ -226,7 +237,7 @@
 							"variable": [
 								{
 									"key": "car_id",
-									"value": "6128aaa63f647854853cef3d"
+									"value": "6128abe0afeb7f73890331a5"
 								}
 							]
 						}
@@ -250,7 +261,7 @@
 							"variable": [
 								{
 									"key": "car_id",
-									"value": "6128aaa63f647854853cef3d"
+									"value": "6130cc2886b08242bc9642c0"
 								}
 							]
 						}
@@ -261,10 +272,16 @@
 					"name": "/cars/:car_id",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTAyNzYsImV4cCI6MTYzMDU5MTE3Nn0.bavVMBjkUBntm8TrbqUFV7AsrRJucVbEHehN4S5kpkk",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"brand\": \"bmv\",\r\n    \"model\": \"s3\",\r\n    \"year\": 2019\r\n}",
+							"raw": "{ \r\n    \"brand\": \"bmv\",\r\n    \"model\": \"s33\",\r\n    \"year\": 2019\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -319,7 +336,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"max10@gmail.com\",\r\n    \"password\": \"maX2*12dfr\"\r\n}",
+							"raw": "{\r\n    \"email\": \"katya@gmail.com\",\r\n    \"password\": \"maX2*12dfr\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -333,6 +350,54 @@
 							],
 							"path": [
 								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTAyNzksImV4cCI6MTYzMDU5MTE3OX0.gKT4W91auSTDPBm9DbkPaZm8cWpIjqbmnBplfaqVdds",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/auth/logout",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/refresh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTA0MTEsImV4cCI6MTYzMzI2ODgxMX0.iiijWdyMwhYufMQV--4XB0d7BzPmVT_6yL7fQhrjRwM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/auth/refresh",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
 							]
 						}
 					},
