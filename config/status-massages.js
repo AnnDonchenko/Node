@@ -10,4 +10,5 @@ module.exports = {
     updated: 'Item is updated',
     deleted: 'Item is deleted',
     notLogined: 'Email or password is wrong',
+    wrongTemplate: 'wrong template name'
 };

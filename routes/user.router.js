@@ -42,8 +42,8 @@ router.patch(
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),
     userMiddleware.checkUserPermission([]),
-    getItemByDynamicParam(User, middlewareVars.email),
-    throwIfItemExist(),
+    // getItemByDynamicParam(User, middlewareVars.email),
+    // throwIfItemExist(),
     userController.updateById
 );
 router.delete(

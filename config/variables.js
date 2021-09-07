@@ -1,6 +1,7 @@
 module.exports = {
     PORT: process.env.PORT || 5001,
     DBPath: process.env.DBPath || 'mongodb://localhost:27017/lesson',
+    FRONTEND_SITE: process.env.FRONTEND_SITE || 'http://somesite.com',
 
     CURRENT_YEAR: new Date().getFullYear(),
     FORM_MASSAGE: 'login form',
@@ -13,4 +14,5 @@ module.exports = {
 
     NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL || 'test@test.ua',
     NO_REPLY_EMAIL_PASSWORD: process.env.NO_REPLY_EMAIL_PASSWORD || '12345',
+    EMAIL_FOR_TEST_LETTERS: process.env.EMAIL_FOR_TEST_LETTERS,
 };

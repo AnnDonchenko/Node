@@ -5,7 +5,7 @@ module.exports = {
     checkUserPermission: (rolesArr = []) => (req, res, next) => {
         try {
             const { role } = req.loginUser;
-
+            console.log(req.loginUser);
             const user = req.loginUser;
             const { user_id } = req.params;
 

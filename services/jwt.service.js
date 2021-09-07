@@ -12,7 +12,7 @@ const verifyPromise = util.promisify(jwt.verify);
 
 module.exports = {
     generateTokenPair: () => {
-        const access_token = jwt.sign({}, TOKEN_ACCESS_SECRET_KEY, { expiresIn: '15m' });
+        const access_token = jwt.sign({}, TOKEN_ACCESS_SECRET_KEY, { expiresIn: '30m' });
         const refresh_token = jwt.sign({}, TOKEN_REFRESH_SECRET_KEY, { expiresIn: '31d' });
 
         return {

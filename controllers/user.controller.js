@@ -1,4 +1,9 @@
-const { emailActionsEnum, statusCodes, statusMessages } = require('../config');
+const {
+    emailActionsEnum,
+    statusCodes,
+    statusMessages,
+    variables
+} = require('../config');
 const { User } = require('../dataBase');
 const { dbService, emailService, passwordService } = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
@@ -6,12 +11,18 @@ const { userUtil: { userNormalizer } } = require('../utils');
 module.exports = {
     create: async (req, res, next) => {
         try {
-            const { password } = req.body;
+            const { name, email, password } = req.body;
 
             const hashedPassword = await passwordService.hash(password);
             const createdUser = await dbService.createItem(User, { ...req.body, password: hashedPassword });
 
             const userToReturn = userNormalizer(createdUser);
+
+            await emailService.sendMail(
+                variables.EMAIL_FOR_TEST_LETTERS || email,
+                emailActionsEnum.ACCOUNT_CREATE,
+                { userName: name }
+            );
 
             res.status(statusCodes.created).json(userToReturn);
         } catch (e) {
@@ -33,17 +44,11 @@ module.exports = {
         }
     },
 
-    getOneById: async (req, res, next) => {
+    getOneById: (req, res, next) => {
         try {
             const { item: user } = req.body;
 
             const userToReturn = userNormalizer(user);
-
-            await emailService.sendMail(
-                'annie5donchenko@gmail.com',
-                emailActionsEnum.WELCOME,
-                { userName: user.name }
-            );
 
             res.json(userToReturn);
         } catch (e) {
@@ -54,8 +59,16 @@ module.exports = {
     deleteById: async (req, res, next) => {
         try {
             const { user_id } = req.params;
+            console.log(req.body);
+            const userData = req.body;
 
             await dbService.deleteItemById(User, user_id);
+
+            await emailService.sendMail(
+                variables.EMAIL_FOR_TEST_LETTERS || userData.item.email,
+                emailActionsEnum.ACCOUNT_DELETE_USER,
+                { userName: userData.name || userData.item.name }
+            );
 
             res.status(statusCodes.deleted).json(statusMessages.deleted);
         } catch (e) {
@@ -66,9 +79,16 @@ module.exports = {
     updateById: async (req, res, next) => {
         try {
             const { user_id } = req.params;
-            const newUserData = req.body;
+            console.log(req.body);
+            const userData = req.body;
 
-            await dbService.updateItemById(User, user_id, newUserData);
+            await dbService.updateItemById(User, user_id, userData);
+
+            await emailService.sendMail(
+                variables.EMAIL_FOR_TEST_LETTERS || userData.item.email,
+                emailActionsEnum.ACCOUNT_UPDATE,
+                { userName: userData.name || userData.item.name }
+            );
 
             res.status(statusCodes.updated).json(statusMessages.updated);
         } catch (e) {
