@@ -9,5 +9,8 @@ module.exports = {
     TOKEN_TYPE_ACCESS: 'access',
     TOKEN_TYPE_REFRESH: 'refresh',
     TOKEN_ACCESS_SECRET_KEY: process.env.ACCESS_SECRET_KEY || 'ghjsfaekr584u3ijdmskmcf6541fx',
-    TOKEN_REFRESH_SECRET_KEY: process.env.REFRESH_SECRET_KEY || 'zsfnlqbi240t9khph756856gdh'
+    TOKEN_REFRESH_SECRET_KEY: process.env.REFRESH_SECRET_KEY || 'zsfnlqbi240t9khph756856gdh',
+
+    NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL || 'test@test.ua',
+    NO_REPLY_EMAIL_PASSWORD: process.env.NO_REPLY_EMAIL_PASSWORD || '12345',
 };

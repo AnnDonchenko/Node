@@ -1,4 +1,4 @@
-const { mainVariables: { FORM_MASSAGE, AUTHORIZATION }, statusCodes } = require('../config');
+const { variables: { FORM_MASSAGE, AUTHORIZATION }, statusCodes } = require('../config');
 const { TokenAuth } = require('../dataBase');
 const { passwordService, dbService, jwtService } = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');

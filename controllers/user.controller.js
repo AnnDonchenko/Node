@@ -1,6 +1,6 @@
-const { statusCodes, statusMessages } = require('../config');
+const { emailActionsEnum, statusCodes, statusMessages } = require('../config');
 const { User } = require('../dataBase');
-const { dbService, passwordService } = require('../services');
+const { dbService, emailService, passwordService } = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
 
 module.exports = {
@@ -33,11 +33,17 @@ module.exports = {
         }
     },
 
-    getOneById: (req, res, next) => {
+    getOneById: async (req, res, next) => {
         try {
             const { item: user } = req.body;
 
             const userToReturn = userNormalizer(user);
+
+            await emailService.sendMail(
+                'annie5donchenko@gmail.com',
+                emailActionsEnum.WELCOME,
+                { userName: user.name }
+            );
 
             res.json(userToReturn);
         } catch (e) {

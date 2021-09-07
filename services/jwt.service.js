@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const util = require('util');
 
 const {
-    mainVariables: { TOKEN_ACCESS_SECRET_KEY, TOKEN_REFRESH_SECRET_KEY, TOKEN_TYPE_ACCESS },
+    variables: { TOKEN_ACCESS_SECRET_KEY, TOKEN_REFRESH_SECRET_KEY, TOKEN_TYPE_ACCESS },
     statusCodes,
     statusMessages
 } = require('../config');

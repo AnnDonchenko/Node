@@ -1,6 +1,6 @@
 const {
     databaseTablesEnum,
-    mainVariables: { AUTHORIZATION, TOKEN_TYPE_REFRESH },
+    variables: { AUTHORIZATION, TOKEN_TYPE_REFRESH },
     statusCodes,
     statusMessages
 } = require('../config');

@@ -3,7 +3,7 @@ const Joi = require('joi');
 const {
     carBrandsEnum,
     regex: { ID_REGEXP },
-    mainVariables: { CURRENT_YEAR }
+    variables: { CURRENT_YEAR }
 } = require('../config');
 
 const createCarValidator = Joi.object({
