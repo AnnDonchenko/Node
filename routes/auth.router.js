@@ -34,4 +34,28 @@ router.post(
     authController.refresh
 );
 
+router.post(
+    '/password/forgot',
+    validateDataByDynamicParam(authValidator.authEmailValidator),
+    getItemByDynamicParam(User, middlewareVars.email),
+    throwIfItemExist(false),
+    authController.passwordForgotSendEmail
+);
+
+router.patch(
+    '/password/forgot',
+    validateDataByDynamicParam(authValidator.authValidator),
+    authMiddleware.validateActiveToken,
+    getItemByDynamicParam(User, middlewareVars.email),
+    throwIfItemExist(false),
+    authController.passwordForgotChange
+);
+
+router.patch(
+    '/password/change',
+    validateDataByDynamicParam(authValidator.authChangePassValidator),
+    authMiddleware.validateAccessToken,
+    authController.passwordChange
+);
+
 module.exports = router;

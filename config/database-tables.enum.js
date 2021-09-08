@@ -1,5 +1,6 @@
 module.exports = {
     CAR: 'car',
-    TokenAuth: 'tokenauth',
+    TokenActive: 'token_active',
+    TokenAuth: 'token_auth',
     USER: 'user'
 };

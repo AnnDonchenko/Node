@@ -4,6 +4,7 @@ module.exports = {
     emailActionsEnum: require('./email-actions.enum'),
     middlewareVars: require('./middlewares-variables'),
     regex: require('./regex'),
+    tokenPurposeEnum: require('./token-purpose.enum'),
     statusCodes: require('./status-codes'),
     statusMessages: require('./status-massages'),
     userRolesEnum: require('./user-roles.enum'),

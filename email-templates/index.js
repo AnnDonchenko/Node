@@ -20,5 +20,13 @@ module.exports = {
     [emailActionsEnum.ACCOUNT_AUTH]: {
         templateName: 'account-auth',
         subject: 'You were log in'
+    },
+    [emailActionsEnum.PASSWORD_FORGOT]: {
+        templateName: 'password-forgot',
+        subject: 'Change your password'
+    },
+    [emailActionsEnum.PASSWORD_CHANGE]: {
+        templateName: 'password-change',
+        subject: 'Your password was changed'
     }
 };

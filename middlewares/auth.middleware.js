@@ -4,7 +4,7 @@ const {
     statusCodes,
     statusMessages
 } = require('../config');
-const { TokenAuth } = require('../dataBase');
+const { TokenAuth, TokenActive } = require('../dataBase');
 const { ErrorHandler } = require('../errors');
 const { dbService, jwtService } = require('../services');
 
@@ -57,6 +57,33 @@ module.exports = {
 
             req.loginUser = tokenFromDB.user;
 
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    validateActiveToken: async (req, res, next) => {
+        try {
+            const active_token = req.get(AUTHORIZATION);
+
+            if (!active_token) {
+                throw new ErrorHandler(statusCodes.invalidToken, statusMessages.noToken);
+            }
+
+            await jwtService.verifyActiveToken(active_token);
+
+            const tokenFromDB = await dbService.findItemAndJoin(
+                TokenActive,
+                { active_token },
+                databaseTablesEnum.USER
+            );
+
+            if (!tokenFromDB) {
+                throw new ErrorHandler(statusCodes.invalidToken, statusMessages.invalidToken);
+            }
+
+            req.activeUser = tokenFromDB.user;
             next();
         } catch (e) {
             next(e);
