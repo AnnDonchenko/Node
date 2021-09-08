@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "eefeaa19-29c5-4bb1-92f4-2f1bb54f2170",
-		"name": "homework05",
+		"_postman_id": "7a0edf85-c4c0-4221-8d9f-05efc256a344",
+		"name": "homework_students",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -10,12 +10,29 @@
 			"item": [
 				{
 					"name": "/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonBody = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.environment.set(\"active_token\", jsonBody.active_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"name\": \"max\",\r\n    \"email\": \"max11@gmail.com\",\r\n    \"password\": \"maX2*12dfr\",\r\n    \"role\": \"user\"\r\n}",
+							"raw": "{ \r\n    \"name\": \"Annie\",\r\n    \"email\": \"annie3@gmail.com\",\r\n    \"password\": \"1weR%&T534\",\r\n    \"role\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -35,7 +52,51 @@
 					"response": []
 				},
 				{
+					"name": "/users/activateAccount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{active_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/users/activateAccount",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"users",
+								"activateAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -85,7 +146,7 @@
 							"variable": [
 								{
 									"key": "user_id",
-									"value": "612f54b3caa6a7f45e712c8d"
+									"value": "6138af6e47aff41340b6e2de"
 								}
 							]
 						}
@@ -94,29 +155,34 @@
 				},
 				{
 					"name": "/users/:users_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTgyMTIsImV4cCI6MTYzMDU5OTExMn0.bxwH0_yl58ZOw00rKoFZoPk74ZNGl77XM7BgbBF5ees",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{domain}}/users/:users_id",
+							"raw": "{{domain}}/users/6138392c8f1ed23bc459a260",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"users",
-								":users_id"
-							],
-							"variable": [
-								{
-									"key": "users_id",
-									"value": "612bab63f866f3eba4ab66a4"
-								}
+								"6138392c8f1ed23bc459a260"
 							]
 						}
 					},
@@ -124,18 +190,36 @@
 				},
 				{
 					"name": "/users/:user_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"Status code is 200\", function() {",
+									"//     pm.response.to.have.status(200);",
+									"// });",
+									"",
+									"// const jsonBody = JSON.parse(responseBody);",
+									"",
+									"// pm.environment.set(\"token\", jsonBody.access_token);",
+									"// pm.environment.set(\"refresh_token\", jsonBody.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTg3MzEsImV4cCI6MTYzMDU5OTYzMX0.REIItNQwCpNmrw2NAuBkTk57VNh1xL5YOiKfnUUrrS8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"name\": \"katya2\",\r\n    \"email\": \"katya2@gmail.com\"\r\n}",
+							"raw": "{ \r\n    \"name\": \"Annie3\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -143,19 +227,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{domain}}/users/:user_id",
+							"raw": "{{domain}}/users/613839a98f1ed23bc459a267",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"users",
-								":user_id"
-							],
-							"variable": [
-								{
-									"key": "user_id",
-									"value": "612ba611a9571ffa55541634"
-								}
+								"613839a98f1ed23bc459a267"
 							]
 						}
 					},
@@ -314,29 +392,30 @@
 			"item": [
 				{
 					"name": "/auth",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/auth",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"auth"
-							]
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const jsonBody = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"token\", jsonBody.access_token);",
+									"pm.environment.set(\"refresh_token\", jsonBody.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "/auth",
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"katya@gmail.com\",\r\n    \"password\": \"maX2*12dfr\"\r\n}",
+							"raw": "{\r\n    \"email\": \"ann@gmail.com\",\r\n    \"password\": \"fsdf234$%hyhS1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -356,13 +435,166 @@
 					"response": []
 				},
 				{
+					"name": "/auth/password/forgot",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const jsonBody = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"active_token\", jsonBody.active_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ann@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/password/forgot",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/password/forgot",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{active_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ann@gmail.com\",\r\n    \"password\": \"fsdf234$%hyhS1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/password/forgot",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/password/change",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_password\": \"fsdf234$%hyhS2\",\r\n    \"password\": \"fsdf234$%hyhS3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/password/change",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"password",
+								"change"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/auth/logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const jsonBody = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"token\", \"\");",
+									"pm.environment.set(\"refresh_token\", \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTAyNzksImV4cCI6MTYzMDU5MTE3OX0.gKT4W91auSTDPBm9DbkPaZm8cWpIjqbmnBplfaqVdds",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -381,12 +613,30 @@
 				},
 				{
 					"name": "/auth/refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const jsonBody = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"token\", jsonBody.access_token);",
+									"pm.environment.set(\"refresh_token\", jsonBody.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA1OTA0MTEsImV4cCI6MTYzMzI2ODgxMX0.iiijWdyMwhYufMQV--4XB0d7BzPmVT_6yL7fQhrjRwM",
+								"value": "{{refresh_token}}",
 								"type": "text"
 							}
 						],
