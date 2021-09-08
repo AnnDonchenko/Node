@@ -1,4 +1,6 @@
 module.exports = {
+    activatedAccount: 'Account was activated',
+    notActivatedAccount: 'Your account was not activated',
     notFound: 'Not Found',
     itemAlreadyExists: 'Is already exist',
     emailExists: 'Email is already exist',

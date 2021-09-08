@@ -17,12 +17,17 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     role: {
         type: String,
         default: userRolesEnum.USER,
         enum: Object.values(userRolesEnum)
+    },
+    activatedByEmail: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 }, { timestamps: true });
 

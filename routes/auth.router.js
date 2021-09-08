@@ -13,6 +13,8 @@ const {
 } = require('../middlewares');
 const { authValidator } = require('../validators');
 
+router.get('/', authController.renderLoginForm);
+
 router.post(
     '/',
     validateDataByDynamicParam(authValidator.authValidator),
@@ -20,7 +22,6 @@ router.post(
     throwIfItemExist(false),
     authController.loginUser
 );
-router.get('/', authController.renderLoginForm);
 
 router.post(
     '/logout',

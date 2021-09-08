@@ -22,5 +22,19 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
+    },
+
+    isAccountActivated: (req, res, next) => {
+        try {
+            const user = req.body.item;
+
+            if (!user.activatedByEmail) {
+                throw new ErrorHandler(statusCodes.forbidden, statusMessages.notActivatedAccount);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
 };

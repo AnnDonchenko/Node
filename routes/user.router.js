@@ -21,6 +21,7 @@ router.post(
     throwIfItemExist(),
     userController.create
 );
+
 router.get(
     '/',
     validateDataByDynamicParam(userValidator.getUsersValidator, middlewareVars.query),
@@ -32,8 +33,10 @@ router.get(
     validateDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),
+    userMiddleware.isAccountActivated,
     userController.getOneById
 );
+
 router.patch(
     '/:user_id',
     validateDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
@@ -41,19 +44,26 @@ router.patch(
     authMiddleware.validateAccessToken,
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),
+    userMiddleware.isAccountActivated,
     userMiddleware.checkUserPermission(),
-    // getItemByDynamicParam(User, middlewareVars.email),
-    // throwIfItemExist(),
     userController.updateById
 );
+
 router.delete(
     '/:user_id',
     validateDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
     authMiddleware.validateAccessToken,
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
+    userMiddleware.isAccountActivated,
     throwIfItemExist(false),
     userMiddleware.checkUserPermission(['admin']),
     userController.deleteById
+);
+
+router.post(
+    '/activateAccount',
+    authMiddleware.validateActiveToken,
+    userController.activateAccount
 );
 
 module.exports = router;

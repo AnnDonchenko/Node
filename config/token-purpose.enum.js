@@ -1,5 +1,5 @@
 module.exports = {
-    changePass: 'change password',
-    forgotPass: 'forgot password',
-    changeEmail: 'change email'
+    activateAccount: 'activate account',
+    changeEmail: 'change email',
+    forgotPass: 'forgot password'
 };

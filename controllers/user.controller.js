@@ -7,30 +7,64 @@ const {
     },
     statusCodes,
     statusMessages,
+    tokenPurposeEnum,
     variables,
     userRolesEnum
 } = require('../config');
-const { User } = require('../dataBase');
-const { dbService, emailService, passwordService } = require('../services');
+const { User, TokenActive } = require('../dataBase');
+const {
+    dbService,
+    emailService,
+    passwordService,
+    jwtService
+} = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
 
 module.exports = {
     create: async (req, res, next) => {
         try {
-            const { name, email, password } = req.body;
+            const user = req.body;
 
-            const hashedPassword = await passwordService.hash(password);
-            const createdUser = await dbService.createItem(User, { ...req.body, password: hashedPassword });
+            const hashedPassword = await passwordService.hash(user.password);
+            const createdUser = await dbService.createItem(User, {
+                ...user,
+                password: hashedPassword
+            });
 
             const userToReturn = userNormalizer(createdUser);
 
-            await emailService.sendMail(
-                variables.EMAIL_FOR_TEST_LETTERS || email,
-                ACCOUNT_CREATE,
-                { userName: name }
+            const token = jwtService.generateActiveToken();
+
+            await dbService.createItem(
+                TokenActive,
+                { ...token, token_purpose: tokenPurposeEnum.activateAccount, user: createdUser.id }
             );
 
-            res.status(statusCodes.created).json(userToReturn);
+            await emailService.sendMail(
+                variables.EMAIL_FOR_TEST_LETTERS || createdUser.email,
+                ACCOUNT_CREATE,
+                {
+                    userName: createdUser.name,
+                    activeTokenLink: `${variables.FRONTEND_SITE}?${variables.AUTHORIZATION}=${token.active_token}`
+                }
+            );
+
+            res.status(statusCodes.created).json({
+                ...token,
+                user: userToReturn
+            });
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    activateAccount: async (req, res, next) => {
+        try {
+            const user = req.activeUser;
+
+            await dbService.updateItemById(User, user.id, { activatedByEmail: true });
+
+            res.json(statusMessages.activatedAccount);
         } catch (e) {
             next(e);
         }
