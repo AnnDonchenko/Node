@@ -1,8 +1,14 @@
 const {
-    emailActionsEnum,
+    emailActionsEnum: {
+        ACCOUNT_CREATE,
+        ACCOUNT_DELETE_ADMIN,
+        ACCOUNT_DELETE_USER,
+        ACCOUNT_UPDATE
+    },
     statusCodes,
     statusMessages,
-    variables
+    variables,
+    userRolesEnum
 } = require('../config');
 const { User } = require('../dataBase');
 const { dbService, emailService, passwordService } = require('../services');
@@ -20,7 +26,7 @@ module.exports = {
 
             await emailService.sendMail(
                 variables.EMAIL_FOR_TEST_LETTERS || email,
-                emailActionsEnum.ACCOUNT_CREATE,
+                ACCOUNT_CREATE,
                 { userName: name }
             );
 
@@ -59,15 +65,16 @@ module.exports = {
     deleteById: async (req, res, next) => {
         try {
             const { user_id } = req.params;
-            console.log(req.body);
             const userData = req.body;
 
             await dbService.deleteItemById(User, user_id);
 
             await emailService.sendMail(
                 variables.EMAIL_FOR_TEST_LETTERS || userData.item.email,
-                emailActionsEnum.ACCOUNT_DELETE_USER,
-                { userName: userData.name || userData.item.name }
+                req.userPermission === userRolesEnum.ADMIN ? ACCOUNT_DELETE_ADMIN : ACCOUNT_DELETE_USER,
+                {
+                    userName: userData.name || userData.item.name,
+                }
             );
 
             res.status(statusCodes.deleted).json(statusMessages.deleted);
@@ -79,14 +86,13 @@ module.exports = {
     updateById: async (req, res, next) => {
         try {
             const { user_id } = req.params;
-            console.log(req.body);
             const userData = req.body;
 
             await dbService.updateItemById(User, user_id, userData);
 
             await emailService.sendMail(
                 variables.EMAIL_FOR_TEST_LETTERS || userData.item.email,
-                emailActionsEnum.ACCOUNT_UPDATE,
+                ACCOUNT_UPDATE,
                 { userName: userData.name || userData.item.name }
             );
 

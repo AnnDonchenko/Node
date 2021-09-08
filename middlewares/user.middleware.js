@@ -5,18 +5,19 @@ module.exports = {
     checkUserPermission: (rolesArr = []) => (req, res, next) => {
         try {
             const { role } = req.loginUser;
-            console.log(req.loginUser);
             const user = req.loginUser;
             const { user_id } = req.params;
 
-            if (!rolesArr.length && user.id === user_id) {
+            if (user.id === user_id) {
+                req.userPermission = user.id;
                 return next();
             }
 
-            if (!rolesArr.includes(role)) {
+            if (!rolesArr.length || !rolesArr.includes(role)) {
                 throw new ErrorHandler(statusCodes.forbidden, statusMessages.forbidden);
             }
 
+            req.userPermission = role;
             next();
         } catch (e) {
             next(e);

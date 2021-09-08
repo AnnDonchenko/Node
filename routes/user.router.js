@@ -41,7 +41,7 @@ router.patch(
     authMiddleware.validateAccessToken,
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),
-    userMiddleware.checkUserPermission([]),
+    userMiddleware.checkUserPermission(),
     // getItemByDynamicParam(User, middlewareVars.email),
     // throwIfItemExist(),
     userController.updateById

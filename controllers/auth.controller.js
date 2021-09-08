@@ -1,6 +1,15 @@
-const { variables: { FORM_MASSAGE, AUTHORIZATION }, statusCodes } = require('../config');
+const {
+    emailActionsEnum,
+    variables: { AUTHORIZATION, EMAIL_FOR_TEST_LETTERS, FORM_MASSAGE },
+    statusCodes
+} = require('../config');
 const { TokenAuth } = require('../dataBase');
-const { passwordService, dbService, jwtService } = require('../services');
+const {
+    dbService,
+    emailService,
+    passwordService,
+    jwtService
+} = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
 
 module.exports = {
@@ -21,6 +30,12 @@ module.exports = {
             const tokenPair = jwtService.generateTokenPair();
 
             await dbService.createItem(TokenAuth, { ...tokenPair, user: user._id });
+
+            await emailService.sendMail(
+                EMAIL_FOR_TEST_LETTERS || user.email,
+                emailActionsEnum.ACCOUNT_AUTH,
+                { userName: user.name }
+            );
 
             res.json({
                 ...tokenPair,

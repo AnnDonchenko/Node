@@ -15,6 +15,10 @@ module.exports = {
     },
     [emailActionsEnum.ACCOUNT_DELETE_USER]: {
         templateName: 'account-delete-user',
-        subject: 'You deleted your account'
+        subject: 'You have deleted your account'
+    },
+    [emailActionsEnum.ACCOUNT_AUTH]: {
+        templateName: 'account-auth',
+        subject: 'You were log in'
     }
 };
