@@ -1,20 +1,10 @@
-// ОБОВʼЯЗКОВО:
-// створити емейли на :
-// - створення акаунту
-// - оновлення акаунту
-// - видалення акаунту користувачем
-// - видалення акаунту адміном
-// - авторизація
+// Хто не доробив, то закінчити Forgot Password
 //
-// ДОДАТКОВО :
-// **реалізувати флоу forgot password.
-// (створити новий ендпоінт методом GET який буде очікувати токен в query/Authorization.
-// Для цих токенів має бути окрема модель)
+// Зробити можливість адміну створювати нових адмінів.
+// При створенні має слатись лист на пошту про те, що юзер NAME створив вам аккаутн.
+// В листі має бути токен, який слугує лише для встановлення нового пароля.
 //
-// **реалізувати change password
-//
-// **реалізувати активацію акаунту через мейл (використи модель з попереднього завдання).
-// Активація акаунту має відпутися при кліку на посилання яке прийшло на email
+// Більше інформації з поясненнями флов у відео
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -22,6 +12,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const { variables: { PORT, DBPath }, statusCodes, statusMessages } = require('./config');
+const { dbInitializationService: { initializeUserCollection } } = require('./utils');
 
 const app = express();
 
@@ -43,6 +34,8 @@ app.use(_mainErrorHandler);
 app.listen(PORT, () => {
     console.log('App listen on ', PORT);
 });
+
+initializeUserCollection();
 
 function _notFoundError(err, req, res, next) {
     next({

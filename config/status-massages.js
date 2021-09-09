@@ -13,5 +13,6 @@ module.exports = {
     deleted: 'Item is deleted',
     paswordUpdated: 'Password is updated',
     notLogined: 'Email or password is wrong',
-    wrongTemplate: 'wrong template name'
+    wrongTemplate: 'wrong template name',
+    emailWasSended: 'Email with token was sended'
 };
