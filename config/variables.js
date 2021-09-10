@@ -16,4 +16,8 @@ module.exports = {
     NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL || 'test@test.ua',
     NO_REPLY_EMAIL_PASSWORD: process.env.NO_REPLY_EMAIL_PASSWORD || '12345',
     EMAIL_FOR_TEST_LETTERS: process.env.EMAIL_FOR_TEST_LETTERS,
+
+    SUPER_ADMIN_NAME: process.env.SUPER_ADMIN_NAME || 'Super Admin',
+    SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL || 'admin@example.com',
+    SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD || '1dfgRl&4bN23s'
 };

@@ -28,10 +28,10 @@ module.exports = {
             const user = req.body;
 
             const hashedPassword = await passwordService.hash(user.password);
-            const createdUser = await dbService.createItem(User, {
-                ...user,
-                password: hashedPassword
-            });
+            const createdUser = await dbService.createItem(
+                User,
+                { ...user, password: hashedPassword }
+            );
 
             const userToReturn = userNormalizer(createdUser);
 
@@ -63,6 +63,7 @@ module.exports = {
     createAdmin: async (req, res, next) => {
         try {
             const user = req.body;
+            const { loginUser } = req;
 
             const hashedPassword = await passwordService.hash(user.password);
             const createdUser = await dbService.createItem(User, {
@@ -84,7 +85,7 @@ module.exports = {
                 ACCOUNT_ADMIN_CREATE,
                 {
                     userName: createdUser.name,
-                    adminName: createdUser.name,
+                    adminName: loginUser.name,
                     activeTokenLink: `${variables.FRONTEND_SITE}?${variables.AUTHORIZATION}=${token.active_token}`
                 }
             );
