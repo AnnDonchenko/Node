@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { middlewareVars } = require('../config');
+const { middlewareVars, tokenPurposeEnum } = require('../config');
 const { authController } = require('../controllers');
 const { User } = require('../dataBase');
 const {
@@ -46,7 +46,7 @@ router.post(
 router.patch(
     '/password/forgot',
     validateDataByDynamicParam(authValidator.authValidator),
-    authMiddleware.validateActiveToken,
+    authMiddleware.validateActiveToken(tokenPurposeEnum.forgotPass),
     getItemByDynamicParam(User, middlewareVars.email),
     throwIfItemExist(false),
     authController.passwordForgotChange

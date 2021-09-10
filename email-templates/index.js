@@ -5,6 +5,10 @@ module.exports = {
         templateName: 'account-create',
         subject: 'Your account was created'
     },
+    [emailActionsEnum.ACCOUNT_ADMIN_CREATE]: {
+        templateName: 'account-admin-create',
+        subject: 'Your account was created by admin'
+    },
     [emailActionsEnum.ACCOUNT_UPDATE]: {
         templateName: 'account-update',
         subject: 'Your account was updated'

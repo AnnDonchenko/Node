@@ -6,7 +6,7 @@ const firstUserCreate = async () => {
     const user = {
         name: 'Super Admin',
         email: 'admin@example.com',
-        password: '12345',
+        password: '1dfgRl&4bN23s',
         role: userRolesEnum.SUPER_ADMIN,
         activatedByEmail: true,
     };

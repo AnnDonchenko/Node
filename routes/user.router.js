@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { middlewareVars } = require('../config');
+const { middlewareVars, tokenPurposeEnum } = require('../config');
 const { userController } = require('../controllers');
 const { User } = require('../dataBase');
 const {
@@ -12,7 +12,7 @@ const {
     },
     userMiddleware
 } = require('../middlewares');
-const { userValidator } = require('../validators');
+const { userValidator, authValidator } = require('../validators');
 
 router.post(
     '/',
@@ -62,8 +62,28 @@ router.delete(
 
 router.post(
     '/activateAccount',
-    authMiddleware.validateActiveToken,
+    authMiddleware.validateActiveToken(tokenPurposeEnum.activateAccount),
     userController.activateAccount
+);
+
+router.post(
+    '/admin/create',
+    validateDataByDynamicParam(userValidator.createAdminValidator),
+    authMiddleware.validateAccessToken,
+    userMiddleware.checkUserPermission([
+        'admin',
+        'super admin'
+    ]),
+    getItemByDynamicParam(User, middlewareVars.email),
+    throwIfItemExist(),
+    userController.createAdmin
+);
+
+router.patch(
+    '/admin/password/change',
+    authMiddleware.validateActiveToken(tokenPurposeEnum.passwordChangeAdmin),
+    validateDataByDynamicParam(authValidator.authPassValidator),
+    userController.changePassAdmin
 );
 
 module.exports = router;

@@ -13,19 +13,7 @@ module.exports = {
 
     deleteItem: (schema, filter) => schema.deleteOne(filter),
 
-    updateItemById: (schema, itemId, newItemData) => schema.updateOne({ _id: itemId }, newItemData),
+    deleteItems: (schema, filter) => schema.deleteMany(filter),
 
-    countItems: async (schema) => {
-        try {
-            let count = 0;
-
-            await schema.countDocuments({}, (c) => {
-                count = c;
-            });
-
-            return count;
-        } catch (e) {
-
-        }
-    }
+    updateItemById: (schema, itemId, newItemData) => schema.updateOne({ _id: itemId }, newItemData)
 };

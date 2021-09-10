@@ -142,6 +142,8 @@ module.exports = {
             const hashedPassword = await passwordService.hash(password);
             await dbService.updateItemById(User, loginUser.id, { password: hashedPassword });
 
+            await dbService.deleteItems(TokenAuth, { user: loginUser.id });
+
             await emailService.sendMail(
                 EMAIL_FOR_TEST_LETTERS || loginUser.email,
                 emailActionsEnum.PASSWORD_CHANGE,

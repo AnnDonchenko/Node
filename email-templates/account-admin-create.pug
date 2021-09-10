@@ -1,0 +1,9 @@
+extends container
+block content
+    | Hello, #{userName}!
+    br
+    | Your account was created by admin #{adminName}.
+    br
+    | For password changing follow the link:
+    br
+    a(href=activeTokenLink) #{activeTokenLink}

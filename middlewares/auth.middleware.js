@@ -63,7 +63,7 @@ module.exports = {
         }
     },
 
-    validateActiveToken: async (req, res, next) => {
+    validateActiveToken: (token_purpose) => async (req, res, next) => {
         try {
             const active_token = req.get(AUTHORIZATION);
 
@@ -75,7 +75,7 @@ module.exports = {
 
             const tokenFromDB = await dbService.findItemAndJoin(
                 TokenActive,
-                { active_token },
+                { active_token, token_purpose },
                 databaseTablesEnum.USER
             );
 
@@ -84,6 +84,9 @@ module.exports = {
             }
 
             req.activeUser = tokenFromDB.user;
+
+            await dbService.deleteItemById(TokenActive, tokenFromDB.id);
+
             next();
         } catch (e) {
             next(e);
