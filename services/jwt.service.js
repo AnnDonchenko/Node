@@ -6,8 +6,12 @@ const {
         TOKEN_ACCESS_SECRET_KEY,
         TOKEN_REFRESH_SECRET_KEY,
         TOKEN_ACTIVE_SECRET_KEY,
+        TOKEN_ACTIVATE_ACCOUNT_SECRET_KEY,
+        TOKEN_FORGOT_PASSWORD_SECRET_KEY,
+        TOKEN_PASSWORD_CHANGE_ADMIN_SECRET_KEY,
         TOKEN_TYPE_ACCESS
     },
+    tokenPurposeEnum,
     statusCodes,
     statusMessages
 } = require('../config');
@@ -26,8 +30,24 @@ module.exports = {
         };
     },
 
-    generateActiveToken: () => {
-        const active_token = jwt.sign({}, TOKEN_ACTIVE_SECRET_KEY, { expiresIn: '5m' });
+    generateActiveToken: (tokenPurpose) => {
+        let key = '';
+
+        switch (tokenPurpose) {
+            case tokenPurposeEnum.activateAccount:
+                key = TOKEN_ACTIVATE_ACCOUNT_SECRET_KEY;
+                break;
+            case tokenPurposeEnum.passwordChangeAdmin:
+                key = TOKEN_PASSWORD_CHANGE_ADMIN_SECRET_KEY;
+                break;
+            case tokenPurposeEnum.forgotPass:
+                key = TOKEN_FORGOT_PASSWORD_SECRET_KEY;
+                break;
+            default:
+                key = TOKEN_ACTIVE_SECRET_KEY;
+        }
+
+        const active_token = jwt.sign({}, key, { expiresIn: '5m' });
 
         return { active_token };
     },
