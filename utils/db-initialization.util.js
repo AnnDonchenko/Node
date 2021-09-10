@@ -12,13 +12,10 @@ const _firstUserCreate = async () => {
     };
 
     const hashedPassword = await passwordService.hash(user.password);
-    const createdUser = await dbService.createItem(
+    await dbService.createItem(
         User,
         { ...user, password: hashedPassword }
     );
-
-    // eslint-disable-next-line no-console
-    console.log(`${createdUser.name} was created`);
 };
 
 module.exports = {

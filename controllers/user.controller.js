@@ -51,10 +51,7 @@ module.exports = {
                 }
             );
 
-            res.status(statusCodes.created).json({
-                ...token,
-                user: userToReturn
-            });
+            res.status(statusCodes.created).json(userToReturn);
         } catch (e) {
             next(e);
         }
@@ -90,10 +87,7 @@ module.exports = {
                 }
             );
 
-            res.status(statusCodes.created).json({
-                ...token,
-                user: userToReturn
-            });
+            res.status(statusCodes.created).json(userToReturn);
         } catch (e) {
             next(e);
         }
