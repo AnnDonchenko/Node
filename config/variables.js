@@ -12,6 +12,9 @@ module.exports = {
     TOKEN_ACCESS_SECRET_KEY: process.env.ACCESS_SECRET_KEY || 'ghjsfaekr584u3ijdmskmcf6541fx',
     TOKEN_REFRESH_SECRET_KEY: process.env.REFRESH_SECRET_KEY || 'zsfnlqbi240t9khph756856gdh',
     TOKEN_ACTIVE_SECRET_KEY: process.env.ACTIVE_SECRET_KEY || 'adsjuf3yqrf7uhcfncd2039ryh9fhd',
+    TOKEN_ACTIVATE_ACCOUNT_SECRET_KEY: process.env.TOKEN_ACTIVATE_ACCOUNT_SECRET_KEY || 'slkjfdslajfw9udsiadjmlaskmc',
+    TOKEN_FORGOT_PASSWORD_SECRET_KEY: process.env.TOKEN_FORGOT_PASSWORD_SECRET_KEY || 'ascm,wo[eijncwou[ecno[m',
+    TOKEN_PASSWORD_CHANGE_ADMIN_SECRET_KEY: process.env.TOKEN_PASSWORD_CHANGE_ADMIN_SECRET_KEY || 'asdmpoq394937hdnsmdd0293',
 
     NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL || 'test@test.ua',
     NO_REPLY_EMAIL_PASSWORD: process.env.NO_REPLY_EMAIL_PASSWORD || '12345',

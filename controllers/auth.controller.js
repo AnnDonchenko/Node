@@ -88,7 +88,7 @@ module.exports = {
         try {
             const { item: user, email } = req.body;
 
-            const token = jwtService.generateActiveToken();
+            const token = jwtService.generateActiveToken(tokenPurposeEnum.forgotPass);
 
             await dbService.createItem(
                 TokenActive,

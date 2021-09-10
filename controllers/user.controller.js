@@ -35,7 +35,7 @@ module.exports = {
 
             const userToReturn = userNormalizer(createdUser);
 
-            const token = jwtService.generateActiveToken();
+            const token = jwtService.generateActiveToken(tokenPurposeEnum.activateAccount);
 
             await dbService.createItem(
                 TokenActive,
@@ -70,7 +70,7 @@ module.exports = {
 
             const userToReturn = userNormalizer(createdUser);
 
-            const token = jwtService.generateActiveToken();
+            const token = jwtService.generateActiveToken(tokenPurposeEnum.passwordChangeAdmin);
 
             await dbService.createItem(
                 TokenActive,
