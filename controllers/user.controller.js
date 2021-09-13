@@ -193,6 +193,12 @@ module.exports = {
             let userData = req.body;
 
             if (req.files && req.files.avatar) {
+                const userInDB = await dbService.findItemById(User, user_id);
+
+                if (userInDB.avatar) {
+                    await s3Service.deleteFile(userInDB.avatar);
+                }
+
                 const s3Response = await s3Service.uploadFile(req.files.avatar, databaseTablesEnum.USER, user_id);
 
                 userData = { ...userData, avatar: s3Response.Location };
