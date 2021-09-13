@@ -11,10 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.987.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "email-templates": "^8.0.8",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
     "express-handlebars": "^5.3.3",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
@@ -22,7 +24,8 @@
     "nodemailer": "^6.6.3",
     "pm2": "^5.1.1",
     "pug": "^3.0.2",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

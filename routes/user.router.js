@@ -10,6 +10,7 @@ const {
         getItemByDynamicParam,
         throwIfItemExist
     },
+    fileMiddleware,
     userMiddleware
 } = require('../middlewares');
 const { userValidator, authValidator } = require('../validators');
@@ -17,6 +18,7 @@ const { userValidator, authValidator } = require('../validators');
 router.post(
     '/',
     validateDataByDynamicParam(userValidator.createUserValidator),
+    fileMiddleware.checkAvatar,
     getItemByDynamicParam(User, middlewareVars.email),
     throwIfItemExist(),
     userController.create
@@ -41,6 +43,7 @@ router.patch(
     '/:user_id',
     validateDataByDynamicParam(userValidator.userIdValidator, middlewareVars.params),
     validateDataByDynamicParam(userValidator.updateUserValidator),
+    fileMiddleware.checkAvatar,
     authMiddleware.validateAccessToken,
     getItemByDynamicParam(User, middlewareVars.user_id, middlewareVars.params, middlewareVars.id),
     throwIfItemExist(false),

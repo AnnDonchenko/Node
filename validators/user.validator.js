@@ -8,7 +8,8 @@ const {
 const createUserValidator = Joi.object({
     name: Joi.string().alphanum().min(2).max(30).trim().required(),
     email: Joi.string().regex(EMAIL_REGEXP).required(),
-    password: Joi.string().regex(PASSWORD_REGEXP).required()
+    password: Joi.string().regex(PASSWORD_REGEXP).required(),
+    avatar: Joi.string()
 });
 
 const createAdminValidator = Joi.object({
@@ -26,6 +27,7 @@ const getUsersValidator = Joi.object({
 
 const updateUserValidator = Joi.object({
     name: Joi.string().alphanum().min(2).max(30),
+    avatar: Joi.string()
 });
 
 const userIdValidator = Joi.object({

@@ -71,7 +71,7 @@ module.exports = {
                 throw new ErrorHandler(statusCodes.invalidToken, statusMessages.noToken);
             }
 
-            await jwtService.verifyActiveToken(active_token);
+            await jwtService.verifyActiveToken(active_token, token_purpose);
 
             const tokenFromDB = await dbService.findItemAndJoin(
                 TokenActive,

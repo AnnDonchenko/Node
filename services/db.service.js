@@ -15,5 +15,11 @@ module.exports = {
 
     deleteItems: (schema, filter) => schema.deleteMany(filter),
 
-    updateItemById: (schema, itemId, newItemData) => schema.updateOne({ _id: itemId }, newItemData)
+    updateItemById: (schema, itemId, newItemData) => schema.updateOne({ _id: itemId }, newItemData),
+
+    updateItemByIdAndReturn: (schema, itemId, newItemData) => schema.findOneAndUpdate(
+        { _id: itemId },
+        newItemData,
+        { new: true }
+    )
 };

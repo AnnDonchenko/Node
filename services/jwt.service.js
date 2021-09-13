@@ -47,14 +47,29 @@ module.exports = {
                 key = TOKEN_ACTIVE_SECRET_KEY;
         }
 
-        const active_token = jwt.sign({}, key, { expiresIn: '5m' });
+        const active_token = jwt.sign({}, key, { expiresIn: '1d' });
 
         return { active_token };
     },
 
-    verifyActiveToken: async (token) => {
+    verifyActiveToken: async (token, tokenPurpose) => {
         try {
-            await verifyPromise(token, TOKEN_ACTIVE_SECRET_KEY);
+            let key = '';
+
+            switch (tokenPurpose) {
+                case tokenPurposeEnum.activateAccount:
+                    key = TOKEN_ACTIVATE_ACCOUNT_SECRET_KEY;
+                    break;
+                case tokenPurposeEnum.passwordChangeAdmin:
+                    key = TOKEN_PASSWORD_CHANGE_ADMIN_SECRET_KEY;
+                    break;
+                case tokenPurposeEnum.forgotPass:
+                    key = TOKEN_FORGOT_PASSWORD_SECRET_KEY;
+                    break;
+                default:
+                    key = TOKEN_ACTIVE_SECRET_KEY;
+            }
+            await verifyPromise(token, key);
         } catch (e) {
             throw new ErrorHandler(statusCodes.invalidToken, statusMessages.invalidToken);
         }

@@ -1,4 +1,5 @@
 const {
+    databaseTablesEnum,
     emailActionsEnum: {
         ACCOUNT_CREATE,
         ACCOUNT_ADMIN_CREATE,
@@ -11,14 +12,15 @@ const {
     statusMessages,
     tokenPurposeEnum,
     variables,
-    userRolesEnum
+    userRolesEnum,
 } = require('../config');
 const { User, TokenActive } = require('../dataBase');
 const {
     dbService,
     emailService,
+    jwtService,
     passwordService,
-    jwtService
+    s3Service
 } = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
 
@@ -28,10 +30,20 @@ module.exports = {
             const user = req.body;
 
             const hashedPassword = await passwordService.hash(user.password);
-            const createdUser = await dbService.createItem(
+            let createdUser = await dbService.createItem(
                 User,
                 { ...user, password: hashedPassword }
             );
+
+            if (req.files && req.files.avatar) {
+                const s3Response = await s3Service.uploadFile(req.files.avatar, databaseTablesEnum.USER, createdUser._id);
+
+                createdUser = await dbService.updateItemByIdAndReturn(
+                    User,
+                    createdUser._id,
+                    { avatar: s3Response.Location }
+                );
+            }
 
             const userToReturn = userNormalizer(createdUser);
 
@@ -184,7 +196,13 @@ module.exports = {
     updateById: async (req, res, next) => {
         try {
             const { user_id } = req.params;
-            const userData = req.body;
+            let userData = req.body;
+
+            if (req.files && req.files.avatar) {
+                const s3Response = await s3Service.uploadFile(req.files.avatar, databaseTablesEnum.USER, user_id);
+
+                userData = { ...userData, avatar: s3Response.Location };
+            }
 
             await dbService.updateItemById(User, user_id, userData);
 

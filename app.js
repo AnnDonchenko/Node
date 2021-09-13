@@ -1,13 +1,13 @@
-// Хто не доробив, то закінчити Forgot Password
+// зареєструватися на AWS
 //
-// Зробити можливість адміну створювати нових адмінів.
-// При створенні має слатись лист на пошту про те, що юзер NAME створив вам аккаутн.
-// В листі має бути токен, який слугує лише для встановлення нового пароля.
+// створити s3 та інтегрувати собі в апку. Користувач повинен мати можливість додати аватар при створенні також
+// змінити його на оновленні
 //
-// Більше інформації з поясненнями флов у відео
+// https://youtu.be/EK4_6HnZS0w?t=6282
 
 const express = require('express');
 const mongoose = require('mongoose');
+const expressFileUpload = require('express-fileupload');
 
 require('dotenv').config();
 
@@ -20,6 +20,7 @@ mongoose.connect(DBPath);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(expressFileUpload());
 
 const { authRouter, carRouter, userRouter } = require('./routes');
 

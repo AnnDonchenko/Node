@@ -22,5 +22,17 @@ module.exports = {
 
     SUPER_ADMIN_NAME: process.env.SUPER_ADMIN_NAME || 'Super Admin',
     SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL || 'admin@example.com',
-    SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD || '1dfgRl&4bN23s'
+    SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD || '1dfgRl&4bN23s',
+
+    PHOTO_MAX_SIZE: 5 * 1024 * 1024,
+    MIMETYPES: {
+        PHOTO: [
+            'image/jpeg',
+            'image/png'
+        ]
+    },
+    AWS_S3_NAME: process.env.AWS_S3_NAME || '',
+    AWS_S3_REGION: process.env.AWS_S3_REGION || '',
+    AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY || '',
+    AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '',
 };
