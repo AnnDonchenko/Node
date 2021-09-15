@@ -3,11 +3,14 @@ const path = require('path');
 const uuid = require('uuid').v1;
 
 const {
-    AWS_S3_ACCESS_KEY,
-    AWS_S3_NAME,
-    AWS_S3_SECRET_KEY,
-    AWS_S3_REGION
-} = require('../config/variables');
+    variables: {
+        AWS_S3_ACCESS_KEY,
+        AWS_S3_NAME,
+        AWS_S3_SECRET_KEY,
+        AWS_S3_REGION,
+    },
+    regex
+} = require('../config');
 
 const bucket = new S3({
     region: AWS_S3_REGION,
@@ -29,11 +32,22 @@ module.exports = {
                 ContentType: mimetype
             })
             .promise();
+    },
+
+    deleteFile: (fileLocation) => {
+        const fileKey = fileLocation.replace(regex.DOMAIN, '');
+
+        return bucket
+            .deleteObject({
+                Bucket: AWS_S3_NAME,
+                Key: fileKey,
+            })
+            .promise();
     }
 };
 
 function _fileNameBuilder(fileName, itemType, itemId) {
     const fileExtension = path.extname(fileName);
 
-    return path.posix.join(itemType, itemId, `${uuid()}${fileExtension}`);
+    return path.posix.join(itemType, itemId, uuid() + fileExtension);
 }

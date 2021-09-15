@@ -177,6 +177,10 @@ module.exports = {
             const { user_id } = req.params;
             const userData = req.body;
 
+            if (userData.item.avatar) {
+                await s3Service.deleteFile(userData.item.avatar);
+            }
+
             await dbService.deleteItemById(User, user_id);
 
             await emailService.sendMail(
@@ -199,6 +203,12 @@ module.exports = {
             let userData = req.body;
 
             if (req.files && req.files.avatar) {
+                const userInDB = await dbService.findItemById(User, user_id);
+
+                if (userInDB.avatar) {
+                    await s3Service.deleteFile(userInDB.avatar);
+                }
+
                 const s3Response = await s3Service.uploadFile(req.files.avatar, databaseTablesEnum.USER, user_id);
 
                 userData = { ...userData, avatar: s3Response.Location };
