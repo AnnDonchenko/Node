@@ -9,6 +9,8 @@ module.exports = {
 
     findItemAndJoin: (schema, filter, tableToJoin) => schema.findOne(filter).populate(tableToJoin),
 
+    findItemsAndJoin: (schema, filter, tableToJoin) => schema.find(filter).populate(tableToJoin),
+
     deleteItemById: (schema, itemId) => schema.deleteOne({ _id: itemId }),
 
     deleteItem: (schema, filter) => schema.deleteOne(filter),

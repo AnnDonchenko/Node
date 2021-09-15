@@ -32,5 +32,9 @@ module.exports = {
     [emailActionsEnum.PASSWORD_CHANGE]: {
         templateName: 'password-change',
         subject: 'Your password was changed'
+    },
+    [emailActionsEnum.COME_BACK]: {
+        templateName: 'come-back',
+        subject: 'Haven`t see you for a long time'
     }
 };

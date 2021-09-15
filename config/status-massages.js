@@ -13,6 +13,7 @@ module.exports = {
     forbidden: 'Forbidden',
     invalidToken: 'Invalid token',
     noToken: 'No token',
+    corsNotAllowed: 'CORS not allowed',
 
     created: 'Item is created',
     updated: 'Item is updated',

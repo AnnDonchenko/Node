@@ -35,4 +35,9 @@ module.exports = {
     AWS_S3_REGION: process.env.AWS_S3_REGION || '',
     AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY || '',
     AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '',
+
+    ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || 'http://localhost:3000',
+
+    CRON_EXP_OLD_TOKENS: '0 0 1 * *',
+    CRON_EXP_SEND_MAILS: '30 6 * * mon,wed,fri'
 };
