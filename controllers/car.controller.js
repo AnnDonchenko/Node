@@ -1,6 +1,6 @@
 const { statusCodes, statusMessages } = require('../config');
 const { Car } = require('../dataBase');
-const { dbService } = require('../services');
+const { dbService, carService } = require('../services');
 
 module.exports = {
     create: async (req, res, next) => {
@@ -17,7 +17,7 @@ module.exports = {
         try {
             const { query } = req;
 
-            const cars = await dbService.findItemsByQuery(Car, query);
+            const cars = await carService.getAll(query);
 
             res.json(cars);
         } catch (e) {

@@ -20,7 +20,8 @@ const {
     emailService,
     jwtService,
     passwordService,
-    s3Service
+    s3Service,
+    userService
 } = require('../services');
 const { userUtil: { userNormalizer } } = require('../utils');
 
@@ -144,7 +145,7 @@ module.exports = {
         try {
             const { query } = req;
 
-            const users = await dbService.findItemsByQuery(User, query);
+            const users = await userService.getAll(query);
 
             const usersToReturn = users.map((item) => userNormalizer(item));
 

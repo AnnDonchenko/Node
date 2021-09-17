@@ -1,11 +1,11 @@
-// реалізуваи все з лекції:
-// rate-limi, morgan, cors, helmet ...
+// зробіть документацію за допомогою swagger на 2 ендпоінти:
+//     -  /users
+//     -  другий оберіть самі
 //
-// реалізуйте відправку емейлів користувачам які не заходили на вашу платформу більше 10 днів,
-// робіть це в понеділок, середу та п'ятницю о 6:30
-
-// - було би добре робити видалення старого аватару з s3 в updateById
-// - можеш видаляти фото з s3 також при видаленні облікового запису
+// зробіть queryBilder для
+// get /cars та /users
+//
+// в кого база досі локальна винесіть в cloud https://cloud.mongodb.com
 
 const cors = require('cors');
 const express = require('express');
@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const expressFileUpload = require('express-fileupload');
 const expressRateLimit = require('express-rate-limit');
+const swaggerUI = require('swagger-ui-express');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ const { variables: { PORT, DBPath, ALLOWED_ORIGINS }, statusCodes, statusMessage
 const { dbInitializationService: { initializeUserCollection } } = require('./utils');
 const { ErrorHandler } = require('./errors');
 const cronJobs = require('./cron');
+const swaggerJson = require('./docs/swagger.json');
 
 const app = express();
 
@@ -47,10 +49,12 @@ if (process.env.NODE_ENV === 'dev') {
 const { authRouter, carRouter, userRouter } = require('./routes');
 
 app.get('/', (req, res) => res.redirect('/users'));
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
 app.use('/auth', authRouter);
 app.use('/cars', carRouter);
 app.use('/users', userRouter);
+
 app.use('*', _notFoundError);
 app.use(_mainErrorHandler);
 
